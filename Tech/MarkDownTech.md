@@ -7,42 +7,50 @@
 
 **加粗文字**
 
-*斜体*
+# *斜体*
+_这样也是斜体_
 
-<u>下划线</u>
+# <u>下划线</u>
 
-~~删除线~~
+# ~~删除线~~
 
 ***
-分隔符
+# 分隔符
 ***
 
+# `高亮`
+
+
+# 引用文本
 >引用文本
 >...
 
 
-添加
-1.数字列表
-2.符号列表
+# 数字列表
+1. 数字列表
+2. 符号列表
 * vscode 行！
 - 这个也行
 
 
 
-添加代办事项
+# 添加代办事项
 * [ ] 记笔记
 * [ ] 坚持记笔记
 
 
-插入链接
+# 插入链接
 [google](www.google.com)
 链接格式
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
 
 
-插入图片
+# 插入图片
 ![image](https://www.yinxiang.com/blog/wp-content/uploads/2018/07/%E5%94%AE%E7%A5%A8%E5%BE%AE%E4%BF%A1%E5%B0%81%E9%9D%A22.png)
+
+<img src="https://www.yinxiang.com/blog/wp-content/uploads/2018/07/%E5%94%AE%E7%A5%A8%E5%BE%AE%E4%BF%A1%E5%B0%81%E9%9D%A22.png" width = "50%" />
+
 <u>可通过以下参数控制图片大小
 @w=300
 @h=150
@@ -51,7 +59,7 @@
 
 
 
-插入表格
+# 插入表格
 
 | 帐户类型 | 免费帐户 | 标准帐户 | 高级帐户 |
 | --- | --- | --- | --- |
@@ -60,7 +68,7 @@
 | 当前价格 | 免费 | ￥8.17/月 | ￥12.33/月|
 
 
-插入代码
+# 插入代码
 ```python
 #标注语言类型即可将显示格式转为对应语言
 #!/usr/bin/python
@@ -79,13 +87,14 @@ else:
 ```
 
 
-添加数学公式 具体详见[katex](https://katex.org/docs/supported.html)
+# 添加数学公式 
+具体详见[katex](https://katex.org/docs/supported.html)
 ```math
 e^{i\pi} + 1 = 0
 ```
 
 
-流程图
+# 流程图
 ```mermaid
 graph TD
 A[模块A] -->|A1| B(模块B)
@@ -94,13 +103,13 @@ C -->|条件C1| D[模块D]
 C -->|条件C2| E[模块E]
 C -->|条件C3| F[模块F]
 ```
-时序图
+# 时序图
 ```mermaid
 sequenceDiagram
 A->>B: 是否已收到消息？
 B-->>A: 已收到消息
 ```
-甘特图
+# 甘特图
 ```mermaid
 gantt
 title 甘特图
@@ -113,10 +122,18 @@ section 项目B
 任务4 : 24d
 ```
 
-设置目录之后可以自动根据设置的分级标题来自动生成目录。
+# 设置目录
+之后可以自动根据设置的分级标题来自动生成目录。
 [TOC]
-
+# 隐藏文字
 [//]: # (此处的文字不会被看到)
 参考：
 - [印象笔记markdown入门指南](https://list.yinxiang.com/markdown/eef42447-db3f-48ee-827b-1bb34c03eb83.php)
 - [一个在线markdown编辑工具，里面有模板](https://dillinger.io/)
+
+# Markdown 的目录树怎么做出来
+
+win 自带
+有个shell命令叫 tree
+see http://linux.die.net/man/1/tree
+Mac下要装tree，不然terminal里用不了  中文乱码 tree -N
