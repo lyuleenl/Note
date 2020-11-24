@@ -169,3 +169,8 @@ windows中的换行符为 CRLF，而在Linux下的换行符为LF
           别人写的代码
 
 >>>>>>>>>>>>>>> sdhqd128dqwenasjdq
+
+#### Another git process seems to be running in this repository
+
+windows对于进程的同步互斥管理，是有资源上锁机制的。猜测这里肯定是有进程对某资源进行了加锁，但是由于进程突然崩溃，未来得及解锁，导致其他进程访问不了。
+进入工作区目录下的隐藏文件.git，其中的index.lock文件删除掉，然后重新打开git bash进程，问题解决。

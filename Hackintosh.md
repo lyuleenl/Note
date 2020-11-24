@@ -1,3 +1,33 @@
+Hi, i'm back. I cleaned the NVRAM, after that I accidentally pushed the "del" key and the BIOS page has appeared.
+
+Im theory yes CMD + ALT + P + R, but I use OpenCore as boot loader and there is an option for that.
+
+You can try using terminal:
+
+sudo nvram -c
+
+sudo shutdown -r now
+
+Restart the PC and try to access BIOS.
+
+Let me know.
+
+设置为 YES 后允许在引导过程中使用苹果原生快捷键, 需要与 Quirk KeySupport=Yes 结合使用, 具体体验取决于主板固件。快捷键组合:
+Cmd + V: 启用 -v 跑码
+Cmd + Opt + P + R: 重置 NVRAM
+Cmd + R: 启动恢复分区
+Cmd + S: 启动至单用户模式
+Option / ALT: 在 ShowPicker 设置成 NO 时显示引导项选择界面, ALT 不可用时可用 ESC 键代替
+Cmd + C + 减号: 关闭主板兼容性检查, 等同于添加引导标识符 -no_compat_check
+Shift: 安全模式
+
+https://blog.daliansky.net/OpenCore-BootLoader.html  find: Boot: 引导界面的设置
+
+https://www.mfpud.com/topics/2984/   删除macOS黑苹果系统四叶草引导Clover启动界面的多余启动硬盘项
+
+
+misc-security-scan policy 改为983299   Hideself改成TRUE
+
 - 配置
 ```
 cpu: i7 8700 coffee lake
