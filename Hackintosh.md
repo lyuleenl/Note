@@ -1,16 +1,3 @@
-Hi, i'm back. I cleaned the NVRAM, after that I accidentally pushed the "del" key and the BIOS page has appeared.
-
-Im theory yes CMD + ALT + P + R, but I use OpenCore as boot loader and there is an option for that.
-
-You can try using terminal:
-
-sudo nvram -c
-
-sudo shutdown -r now
-
-Restart the PC and try to access BIOS.
-
-Let me know.
 
 设置为 YES 后允许在引导过程中使用苹果原生快捷键, 需要与 Quirk KeySupport=Yes 结合使用, 具体体验取决于主板固件。快捷键组合:
 Cmd + V: 启用 -v 跑码
@@ -220,6 +207,21 @@ Apple -> System Preferences -> Startup Disk  设置MacOS 启动盘为启动项
 ### `bios 黑屏 可正常进系统`
 
 clean nvram 即可
+```
+Hi, i'm back. I cleaned the NVRAM, after that I accidentally pushed the "del" key and the BIOS page has appeared.
+
+Im theory yes CMD + ALT + P + R, but I use OpenCore as boot loader and there is an option for that.
+
+You can try using terminal:
+
+sudo nvram -c
+
+sudo shutdown -r now
+
+Restart the PC and try to access BIOS.
+
+Let me know.
+```
 
 
 

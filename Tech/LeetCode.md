@@ -654,3 +654,45 @@ class Solution {    
     }
 }
 ```
+
+### 在每一个数字中间加上一个“，”
+
+知乎上的一个问题，如输入a[6]={1,2,3,4,5,6}输出1，2，3，4，5，6；
+记录一个大佬的回答
+```C
+#include <stdio.h>
+int main(void){
+    int a[6]={1,23,4,5,6};
+    for(i=0;i<6;i++){
+        printf(",%d"+!i,a[i]);
+    }
+    return 0;
+}
+```
+[//]: #(转自知乎:谷雨同学)
+
+
+```C#
+        #region XML转JSON
+        /// <summary>
+        /// Get xml to json obj
+        /// </summary>
+        /// <param name="xmlPath">xml localpath</param>
+        public static JArray XML2JSON(string xmlPath)
+        {
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.Load(xmlPath);
+            //string json = JsonConvert.SerializeXmlNode(xmlDoc);
+            string xmlStr = xmlDoc.InnerXml;
+            Services.ArrayOfAsset asset = XmlUtil.Deserialize(typeof(Services.ArrayOfAsset), xmlStr) as Services.ArrayOfAsset;
+            //add head 
+            Services.XMLFormat xMLFormat = new Services.XMLFormat();
+            xMLFormat.Asset = asset.Asset;
+            object a = xMLFormat.Asset;
+            string strJson = JsonConvert.SerializeObject(a);
+            //Services.Asset jo = JsonConvert.DeserializeObject<Services.Asset>(strJson);
+            JArray json = (JArray)new JsonSerializer().Deserialize(new JsonTextReader(new StringReader(strJson)));
+            return json;
+        }
+        #endregion
+```

@@ -6,6 +6,11 @@
 2. 输入diskpart
 3.  ![list disk](https://img2020.cnblogs.com/blog/2130168/202011/2130168-20201104185107275-2099770035.png)
 
+## PowerToys使用指南
+- 1. spotlight：```Alt+space```
+- 2. Windows 快捷键说明：```长按Windows键3秒```
+
+
 # Mac
 
 
