@@ -1,14 +1,14 @@
 
-## git branch
+# git branch
 
-### 删除本地分支
+## 删除本地分支
 ```
 git branch -d <branch name>
 ```
 
-## git stash 
+# git stash 
 可以将本地还没有提交的改动全部存储起来 并不提交
-### git stash apply / git stash pop
+## git stash apply / git stash pop
 这两个命令就可以将刚才暂存起来的内容还原了。但是这里有一个问题，就是 stash apply 和 pop 之间是不同的。
 这里涉及到 stash 内部的实现机制，stash 内部其实是通过堆栈实现的。pop 对于堆栈而言很明确，就是弹出的意思。也就是说如果我们使用的是 pop，那么当我们 pop 之后，这条记录会在堆栈当中删除。而如果使用的是 apply 呢，记录不会从堆栈当中删除，仍然会保留下来。
 一般情况下我使用 pop 多一些，但是 pop 也有缺点，比如 pop 没有办法选择应用的记录。我们可以使用 git stash list 来查看一下当前堆栈当中已经有的记录。
@@ -16,30 +16,30 @@ git branch -d <branch name>
 ```
 git stash apply stash@{2}
 ```
-## git push
+# git push
 
-### 撤销add
+## 撤销add
 如果是某个文件回滚到上一次操作：  
 ```
 git reset HEAD  文件名
 ```
-### 撤销commit
+## 撤销commit
 ```
 git reset --soft HEAD~1  //windows的bash
 ```
 
-#### 撤销push操作
+## 撤销push操作
 重置至指定版本的提交，达到撤销提交的目的
 git reset –-soft <版本号>
 
 
-## git commit 
+# git commit 
 
-#### 使用amend命令修改commit信息（注： amend命令只会修改最后一次commit的信息，之前的commit需要使用rebase）
+## 使用amend命令修改commit信息（注： amend命令只会修改最后一次commit的信息，之前的commit需要使用rebase）
 ```
 git commit --amend --reset-author
 ```
-#### 查看提交历史记录
+## 查看提交历史记录
 *git log*
 
 查看所有的commit提交记录
@@ -66,9 +66,56 @@ git commit --amend --reset-author
 
 *git show < commitId fileName >*
 
-## git 其他
+## Commit message 的格式
+### 传统方式
+每次提交，Commit message 都包括三个部分：Header，Body 和 Footer。Header 是必需的，Body 和 Footer 可以省略。
 
-### git add . 与 git add * 的区别    
+（1）type
+
+type用于说明 commit 的类别，只允许使用下面7个标识。
+```
+feat：新功能（feature）
+fix：修补bug
+docs：文档（documentation）
+style： 格式（不影响代码运行的变动）
+refactor：重构（即不是新增功能，也不是修改bug的代码变动）
+test：增加测试
+chore：构建过程或辅助工具的变动
+```
+（2）scope
+
+scope用于说明 commit 影响的范围，比如数据层、控制层、视图层等等，视项目不同而不同。
+
+（3）subject
+
+subject是 commit 目的的简短描述，不超过50个字符。
+```
+以动词开头，使用第一人称现在时，比如change，而不是changed或changes
+第一个字母小写
+结尾不加句号（.）
+```
+### blingbling emoji
+To use gitmojis from your command line install gitmoji-cli. A gitmoji interactive client for using emojis on commit messages.
+```
+npm i -g gitmoji-cli
+```
+
+*常用[emoji](https://gitmoji.carloscuesta.me/)*
+
+:memo: :pencil:Add or update documentation.
+:pencil2:Fix typos.
+:bug:Fix a bug.
+:rocket:Deploy stuff.
+:sparkles:Introduce new features.
+:tada:Begin a project.
+参考：
+[Git 写出好的 commit message](https://ruby-china.org/topics/15737)
+[Commit message 和 Change log 编写指南](https://www.ruanyifeng.com/blog/2016/01/commit_message_change_log.htm)
+[git commit 时使用 Emoji ](https://zhuanlan.zhihu.com/p/29764863)
+
+# git 其他
+
+## git add . 与 git add * 的区别    
 - 1
 git add . 按.gitignore规则全部提交。不会提示.gitignore
 git add * 与add .  不一样的在于会提示已被忽略的内容。
@@ -77,23 +124,23 @@ git add * 与add .  不一样的在于会提示已被忽略的内容。
 - 2
 git add .默认添加. 开头的文件  例如.gitignore   git add * 忽略. 开头的文件
 
-### git中出现 > 这个符号怎么退出？
+## git中出现 > 这个符号怎么退出？
 
 ctrl + d 即可退出。
 
 这个表示没有输入完成，输入没有闭合。比如，只输入了一边的双引号或单引号。
-### 如何重置本项目用户信息：
+## 如何重置本项目用户信息：
 ```
 git config user.name 'your name'
 git config user.email xx@email.com
 ```
-### git为本地分支设置对应的远程分支
+## git为本地分支设置对应的远程分支
 当运行git pull时，如果本地分支没有绑定远程分支，将无法正常pull。
 运行命令如下：
 ```
 git branch --set-upstream-to=origin/branchName
 ```
-### Git中用vim打开、修改、保存文件
+## Git中用vim打开、修改、保存文件
 一、vim 有两种工作模式： 
 1.命令模式：接受、执行 vim操作命令的模式，打开文件后的默认模式； 
 
@@ -132,7 +179,7 @@ git branch --set-upstream-to=origin/branchName
 
 在git窗口，输入命令：touch 文件夹名
 
-### 使用Git上传项目时需要输入用户名和密码
+## 使用Git上传项目时需要输入用户名和密码
 这里简述一下主要步骤：
 
 step1.将上传代码的方式从 https 改成 ssh
@@ -145,11 +192,11 @@ step2.在自己本地生成ssh公钥并写在github中指定项目的key中
 step3.执行命令 `git push -u origin master`
 
 
-### git 报错
-#### fatal: This operation must be run in a work tree 
+# git 报错
+## fatal: This operation must be run in a work tree 
 可能原因： 1.路径不正确
           2.git仓库没有正确创建
-#### warning: LF will be replaced by CRLF in ****. The file will have its original line endings in y
+## warning: LF will be replaced by CRLF in ****. The file will have its original line endings in y
 警告原因：可能是你的项目使用了GitHub的开源项目，这个开源项目上传的环境（Linux）和你本次上传GitHub仓库的环境（Windows）不同
 例如：本机上传的环境是win10    ，而在你本机项目中引用的GitHub项目上传环境是Linux
 
@@ -158,7 +205,7 @@ windows中的换行符为 CRLF，而在Linux下的换行符为LF
 就会产生如上换行符不同的警告
 但是这个错误可以直接忽略，对项目影响不大，我觉着如果以后项目在其他环境上运行的话，还可以通过这个方法改变换行符，是项目在其他环境中正常运行！
 
-#### Automatic merge failed; fix conflicts and then commit the result.
+## Automatic merge failed; fix conflicts and then commit the result.
 自动合并失败；修改冲突然后提交修改后的结果。
 <<<<<<<< HEAD
 
@@ -170,13 +217,13 @@ windows中的换行符为 CRLF，而在Linux下的换行符为LF
 
 >>>>>>>>>>>>>>> sdhqd128dqwenasjdq
 
-#### Another git process seems to be running in this repository
+## Another git process seems to be running in this repository
 
 windows对于进程的同步互斥管理，是有资源上锁机制的。猜测这里肯定是有进程对某资源进行了加锁，但是由于进程突然崩溃，未来得及解锁，导致其他进程访问不了。
 进入工作区目录下的隐藏文件.git，其中的index.lock文件删除掉，然后重新打开git bash进程，问题解决。
 
 
-### .gitignore用法
+# .gitignore用法
 ```
 # 忽略 .a 文件
 *.a
