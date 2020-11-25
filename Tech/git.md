@@ -174,3 +174,22 @@ windows中的换行符为 CRLF，而在Linux下的换行符为LF
 
 windows对于进程的同步互斥管理，是有资源上锁机制的。猜测这里肯定是有进程对某资源进行了加锁，但是由于进程突然崩溃，未来得及解锁，导致其他进程访问不了。
 进入工作区目录下的隐藏文件.git，其中的index.lock文件删除掉，然后重新打开git bash进程，问题解决。
+
+
+### .gitignore用法
+```
+# 忽略 .a 文件
+*.a
+# 但否定忽略 lib.a, 尽管已经在前面忽略了 .a 文件
+!lib.a
+# 仅在当前目录下忽略 TODO 文件， 但不包括子目录下的 subdir/TODO
+/TODO
+# 忽略 build/ 文件夹下的所有文件
+build/
+# 忽略 doc/notes.txt, 不包括 doc/server/arch.txt
+doc/*.txt
+# 忽略所有的 .pdf 文件 在 doc/ directory 下的
+doc/**/*.pdf
+```
+
+[模板](https://github.com/github/gitignore)
