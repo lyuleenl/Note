@@ -5,3 +5,5 @@ test.*
 # 忽略xml 和json文件
 *.xml
 *.json
+
+.DS_Store
