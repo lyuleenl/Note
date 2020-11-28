@@ -1,6 +1,8 @@
 参考：Linux就该这么学  鸟哥的Linux私房菜 
 [新手应该知道的26个命令](https://locez.com/Linux/common-command/)[Linux 基础](https://linuxtools-rst.readthedocs.io/zh_CN/latest/base/index.html#)
 
+公网ip：47.93.247.69
+
 # 断点续传
 `wget -c <downloadlink>`
 # 删除文件和文件夹
@@ -12,7 +14,13 @@
 解压缩：`tar -j<u>x</u>v -f filename.tar.bz2 -C` 欲解压缩的目录
 `tar -zxvf <filename>`
 
-
+# 查看端口状态
+netstat -anlp
+# 杀进程
+kill -9 <pid>
+# 服务器启动frp
+systemctl start frps # 启动frp
+systemctl enable frps #开机自启frp
 # 如何寻求帮助？
 在 Linux 下遇到问题，最重要的是要自己寻求帮助，下面是三种寻求帮助的方法。
 
@@ -86,7 +94,7 @@ $ ls -al   ### 列出所有文件（包括隐藏）的详细信息
 注意： Linux 中 以 . 开头的文件或文件夹均为隐藏文件或隐藏文件夹。
 ### pwd
 pwd 用于返回当前工作目录的名字，为绝对路径名。
-```s
+```s 
 $ pwd
 /home
 ```
