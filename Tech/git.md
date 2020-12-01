@@ -180,6 +180,7 @@ git branch --set-upstream-to=origin/branchName
 在git窗口，输入命令：touch 文件夹名
 
 ## 使用Git上传项目时需要输入用户名和密码
+### 小登陆框
 这里简述一下主要步骤：
 
 step1.将上传代码的方式从 https 改成 ssh
@@ -191,6 +192,7 @@ step2.在自己本地生成ssh公钥并写在github中指定项目的key中
 
 step3.执行命令 `git push -u origin master`
 
+### 小登录
 
 # git 报错
 ## fatal: This operation must be run in a work tree 

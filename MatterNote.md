@@ -1,3 +1,8 @@
+switch network
+手机有shadowrocket小火箭的话可以。
+手机和ns连接同一个局域网wifi，
+小火箭 设置 代理 代理共享 开启
+ns wifi设置 开启代理 输入小火箭代理共享界面的ip和端口就可以了 
 
 阿里云远程连接密码
 iyY3cR
