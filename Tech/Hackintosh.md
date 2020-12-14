@@ -35,9 +35,9 @@ rom: WD sn550 500g X2
 
 | 英文 | 中文 |
 | --- | --- |
-| Fast Boot | 快速启动 | 
-| CFG Lock (MSR 0xE2 write protection) | CFG 锁 (MSR 0xE2 写入保护) | 
-| VT-d | [VT-d](https://zhidao.baidu.com/question/495526512.html) | 
+| Fast Boot | 快速启动 |
+| CFG Lock (MSR 0xE2 write protection) | CFG 锁 (MSR 0xE2 写入保护) |
+| VT-d | [VT-d](https://zhidao.baidu.com/question/495526512.html) |
 | CSM  | 兼容性支持模块 |
 | Intel SGX | Intel SGX |
 
@@ -45,9 +45,9 @@ rom: WD sn550 500g X2
 
 | 英文 | 中文 |
 | --- | --- |
-| VT-x | [VT-x](https://zhidao.baidu.com/question/495526512.html) | 
-| Above 4G decoding | 大于 4G 地址空间解码 | 
-| Hyper Threading | 处理器超线程 | 
+| VT-x | [VT-x](https://zhidao.baidu.com/question/495526512.html) |
+| Above 4G decoding | 大于 4G 地址空间解码 |
+| Hyper Threading | 处理器超线程 |
 | Execute Disable Bit | 执行禁止位 |
 | EHCI/XHCI Hand-off | 接手 EHCI/XHCI 控制 |
 | OS type: Other | 操作系统类型: Other | - 改为Windows 8.1/10 也可
@@ -65,7 +65,7 @@ rom: WD sn550 500g X2
 | Applealc.kext | 声卡驱动 |
 | VirtualSMC.kext | 传感器驱动依赖 |
 | SMCProcessor.kext | CPU核传感器 |
-| SMCSuperIO.kext | IO传感器 | 
+| SMCSuperIO.kext | IO传感器 |
 | WhateverGreen.kext | 显卡驱动 |
 | IntelMausi.kext | Intel类千兆网卡驱动 |
 | Usbinjectall.kext | USB驱动（你也可以定制自己的USB补丁）|
@@ -191,26 +191,26 @@ _称为 SMU 的固件（SMU Firmware）_  针对这个情况，可以使用由 @
 
 
 ## 常见问题及解决方案
-### `MacOS 与 Windows 时间不一致`
+### MacOS 与 Windows 时间不一致
 Windows 管理员运行cmd 输入命令：Reg add HKLM\SYSTEM\CurrentControlSet\Control\TimeZoneInformation /v RealTimeIsUniversal /t REG_DWORD /d 1
 
 原因：Windows 与Mac计算时间方式不同，Windows直接读取UTF时间，Mac自动UTF+8
 
 
 
-### `开机显示American Megatrends`
+### 开机显示American Megatrends
 
 <img src="https://img2020.cnblogs.com/blog/2130168/202011/2130168-20201112090556500-1003078245.jpg" width = "50%" />
 
 config.plist->NVRAM->Add->7C436110-AB2A-4BBB-A880-FE41995C9F82->boot-args
 添加字段  rtcfx_excloud=80-FF  从00-FF 自己试
 
-### `Open Core 默认选项无法修改`
+### Open Core 默认选项无法修改
 
 Apple -> System Preferences -> Startup Disk  设置MacOS 启动盘为启动项
 在 Open Core 中选择你想设为默认的系统 Ctrl+Enter 即可
 
-### `bios 黑屏 可正常进系统`
+### bios 黑屏 可正常进系统
 
 clean nvram 即可
 ```

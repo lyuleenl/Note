@@ -1,3 +1,7 @@
+---
+typora-root-url: ..\New folder
+---
+
 
 # git branch
 
@@ -210,6 +214,12 @@ git pull
 ```
 
 将该脚本放到git仓库的根目录中
+
+<img src="/../Tech/git.assets/image-20201214140659729.png" alt="image-20201214140659729" style="zoom:67%;" />
+
+<img src="/../Tech/git.assets/image-20201214140108699.png" alt="image-20201214140108699" style="zoom:67%;" />
+
+参考：https://blog.csdn.net/yougou_sully/article/details/106114253
 
 ### Mac
 
