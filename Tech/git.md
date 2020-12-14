@@ -13,6 +13,7 @@ git branch -d <branch name>
 这里涉及到 stash 内部的实现机制，stash 内部其实是通过堆栈实现的。pop 对于堆栈而言很明确，就是弹出的意思。也就是说如果我们使用的是 pop，那么当我们 pop 之后，这条记录会在堆栈当中删除。而如果使用的是 apply 呢，记录不会从堆栈当中删除，仍然会保留下来。
 一般情况下我使用 pop 多一些，但是 pop 也有缺点，比如 pop 没有办法选择应用的记录。我们可以使用 git stash list 来查看一下当前堆栈当中已经有的记录。
 如果我们使用 git stash pop 的话，默认的是应用的栈顶的记录，也就是 stash@{0}。但如果我们使用 stash apply 的话，我们可以自由选择我们想要应用的记录。比如如果我们想要应用最后一条记录的话，我们可以这样：
+
 ```
 git stash apply stash@{2}
 ```
@@ -193,6 +194,44 @@ step2.在自己本地生成ssh公钥并写在github中指定项目的key中
 step3.执行命令 `git push -u origin master`
 
 ### 小登录
+
+## Git自动push/pull
+
+### windows
+
+bat脚本
+
+```shell
+@echo off
+e:
+cd C:\Users\Lei Yu\OneDrive - bupt.edu.cn\Document\MarkDownNote
+git config --global credential.helper store
+git pull
+```
+
+将该脚本放到git仓库的根目录中
+
+### Mac
+
+利用[crontab](https://zh.wikipedia.org/wiki/Cron)编写定时脚本，自动同步（可以在macOS和Linux下运行）
+
+```bash
+crontab -e
+```
+
+输入下列定时任务（每15分钟同步一次）
+
+```bash
+*/15 * * * * cd /Users/yourname/Markdown;git add .;git commit -m "AutoSave";git push origin master
+```
+
+保存即可，可以用下列命令检验定时脚本是否设置成功。
+
+```bash
+crontab -l
+```
+
+
 
 # git 报错
 ## fatal: This operation must be run in a work tree 
