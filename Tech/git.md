@@ -21,6 +21,12 @@ git branch -d <branch name>
 ```
 git stash apply stash@{2}
 ```
+清空`git stash clear` 删除某个`git stash drop stash@{0}  `
+
+脚注示范[^1]
+
+
+
 # git push
 
 ## 撤销add
@@ -291,3 +297,6 @@ doc/**/*.pdf
 ```
 
 [模板](https://github.com/github/gitignore)
+
+[^1]:这是解释
+
