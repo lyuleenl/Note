@@ -1,25 +1,28 @@
-[2.3 Config–DeviceProperties](https://blog.xjn819.com/post/opencore-guide.html)
+
+
+macintosh 麦金塔
+
+# Unsolved
+
+- 黑苹果 屏幕亮度
+
+- 随航问题  目前高度怀疑是核显没激活
 
 
 
-设置为 YES 后允许在$\color{red}{引导过程}$中使用苹果原生快捷键, 需要与 Quirk KeySupport=Yes 结合使用, 具体体验取决于主板固件。
+BIOS 中设置主显卡为独显 (PCIE) 并且设置 DVMT 为 128M，以便独显、核显并存
 
-快捷键组合:
-```
-Cmd + V: 启用 -v 跑码
-Cmd + Opt + P + R: 重置 NVRAM
-Cmd + R: 启动恢复分区
-Cmd + S: 启动至单用户模式
-Option / ALT: 在 ShowPicker 设置成 NO 时显示引导项选择界面, ALT 不可用时可用 ESC 键代替
-Cmd + C + 减号: 关闭主板兼容性检查, 等同于添加引导标识符 -no_compat_check
-Shift: 安全模式
-```
+enabling "Above 4G Decoding."
+
+- 引导界面多余选项
+
 https://blog.daliansky.net/OpenCore-BootLoader.html  find: Boot: 引导界面的设置
 
 https://www.mfpud.com/topics/2984/   删除macOS黑苹果系统四叶草引导Clover启动界面的多余启动硬盘项
 
-
 misc-security-scan policy 改为983299   Hideself改成TRUE
+
+# 安装环境
 
 - 配置
 ```
@@ -50,14 +53,20 @@ rom: WD sn550 500g X2
 | Hyper Threading | 处理器超线程 |
 | Execute Disable Bit | 执行禁止位 |
 | EHCI/XHCI Hand-off | 接手 EHCI/XHCI 控制 |
-| OS type: Other | 操作系统类型: Other | - 改为Windows 8.1/10 也可
+| OS type: Other | 操作系统类型: Other |
 | Legacy RTC Device | 传统 RTC 设备 |
 | restore on ac power loss | 通电自启 |
+打开 Ahci 选项
 
-`EFI 文件结构`
+# 引导介绍
+
+## EFI 文件结构
 
 打开下载好的最新版 OC，把 Doc 文件夹下面的 Sample.plist 改名为 config.plist，并把此文件移动到 EFI 目录下面。
-打开 EFI--Kexts，我们把常用的一些 kexts 先放进去，一般情况下你需要放如下 Kexts:
+
+`EFI-OC-Kexts`
+
+打开 Kexts，我们把常用的一些 kexts 先放进去，一般情况下你需要放如下 Kexts:
 
 | 文件名 | 解析 |
 | --- | --- |
@@ -71,24 +80,16 @@ rom: WD sn550 500g X2
 | Usbinjectall.kext | USB驱动（你也可以定制自己的USB补丁）|
 | NVMeFix.kext | 为NVME硬盘增加ASPT属性来保证节电，虽然对台式机没啥用，但是官方推荐所有NVME用户都使用此补丁 |
 
-打开EFI--Drives,里面的驱动介绍如下：
+`EFI-OC-Drives`
+
+打开Drives,里面的驱动介绍如下：
 
 | 文件名 | 解析 |
 | --- | --- |
-| AudioDxe.efi | 开机UEFI界面若需要声音效果需要加载。|
-| CrScreenshotDxe.efi | 开机UEFI的截图工具。|
-| HiiDatabase.efi | 用于给 Ivy Bridge (3 代酷睿) 或更老代主板上支持 UEFI 字体渲染, UEFI Shell 中文字渲染异常时使用, 新主板不需要。|
-| NvmExpressDxe.efi | 用于在 Haswell (4 代酷睿) 或更老的主板上支持 NVMe 硬盘, 新主板不需要。|
-| OpenCanopy.efi | 加载第三方开机主题。|
-| OpenRuntime.efi | 内存运用等必要的插件，必须加载。|
-| OpenUsbKbDxe.efi | 给使用模拟 UEFI 的老主板在 OpenCore 界面正常输入用的, 请勿在 Ivy Bridge (3 代酷睿)及以上的主板上使用。|
-| Ps2KeyboardDxe.efi | PS2键盘所需插件。|
-| Ps2MouseDxe.efi | PS2鼠标所需插件。|
-| UsbMouseDxe.efi | 当MacOS被安装在虚拟机上所需要的鼠标插件。|
-| XhciDxe.efi | 用于在 Sandy Bridge（2代）及之前或更老的主板上加载XHCI控制器。|
-| HfsPlus.efi | 用于HFS格式文件系统，这是必须加载的。|
-
-# macintosh 麦金塔
+| HfsPlus.efi | 用于HFS格式文件系统，这是必须加载的。 |
+| OpenRuntime.efi | 内存运用等必要的插件，必须加载。 |
+| MemoryAllocation.efi | 为 Z390/X99 等主板预留第一组 512MB 内存, 帮助引导工具注入内核以及内核缓存至第一组 512MB 内存, 需要配合 FwRuntimeServices 和引导标识符 `slide=1` [参考](https://blog.daliansky.net/OpenCore-BootLoader.html) |
+| OpenCanopy.efi | 加载第三方开机主题。(目前没有主题) |
 
 这个安装阶段中,要确保是从硬盘启动而不是 u盘. 从 u 盘启动将会重新开始最初的安装过程.
 
@@ -97,12 +98,11 @@ rom: WD sn550 500g X2
 they released ACPI patch for our hacks to get native NVRAM (like older motherboards, only difference is in that we need additional .aml file in our EFIs). 
 
 
-U盘写好系统后,打开DiskGenius,把自己型号的clover复制到U盘的EFI文件夹替换原clover
+U盘写好系统后,打开DiskGenius,把自己型号的clover复制到U盘的EFI文件夹替换原clover[^1]
 
-## EFI文件夹结构
-我们先 「删除」 一些不需要的文件
+- 官方支持的其他文件
 
-*$drivers$* 文件夹下
+***`drivers`*文件夹下**
 
 `AppleUsbKbDxe.efi`
 
@@ -120,7 +120,35 @@ U盘写好系统后,打开DiskGenius,把自己型号的clover复制到U盘的EFI
 
 >用于给 Ivy Bridge (3 代酷睿) 或更老代主板上支持 UEFI 字体渲染, UEFI Shell 中文字渲染异常时使用, 新主板不需要
 
-*$tools$* 文件夹下
+`AudioDxe.efi`  
+
+> 开机UEFI界面若需要声音效果需要加载。
+
+`CrScreenshotDxe.efi `
+
+> 开机UEFI的截图工具。
+
+`OpenUsbKbDxe.efi `
+
+> 给使用模拟 UEFI 的老主板在 OpenCore 界面正常输入用的, 请勿在 Ivy Bridge (3 代酷睿)及以上的主板上使用。
+
+`Ps2KeyboardDxe.efi`
+
+> PS2键盘所需插件。
+
+`Ps2MouseDxe.efi `
+
+> PS2鼠标所需插件。
+
+`UsbMouseDxe.efi `
+
+> 当MacOS被安装在虚拟机上所需要的鼠标插件。
+
+`ACPIBatteryManager.kext`
+
+> 电源管理驱动
+
+***`tools`*** **文件夹下**
 
 `BootKicker.efi`
 
@@ -146,27 +174,43 @@ U盘写好系统后,打开DiskGenius,把自己型号的clover复制到U盘的EFI
 
 现在, 我们可以把 AppleSupportPkg 中必需的 .efi 驱动程序放入 Drivers 文件夹, 将 你的 kext 和 DSDT/SSDT 放入各自的文件夹中。请注意, OpenCore 不支持支持列表以外的 UEFI 驱动程序!
 
+## config.plist介绍
 
+**PollAppleHotKeys:** `YES`
 
-## 安装原理
+设置为 YES 后允许在**引导过程**中使用苹果原生快捷键, 需要与 Quirk KeySupport=Yes 结合使用, 具体体验取决于主板固件。
 
-### 使用的软件
+快捷键组合:
+
+```
+Cmd + V: 启用 -v 跑码
+Cmd + Opt + P + R: 重置 NVRAM
+Cmd + R: 启动恢复分区
+Cmd + S: 启动至单用户模式
+Option / ALT: 在 ShowPicker 设置成 NO 时显示引导项选择界面, ALT 不可用时可用 ESC 键代替
+Cmd + C + 减号: 关闭主板兼容性检查, 等同于添加引导标识符 -no_compat_check
+Shift: 安全模式
+```
+
+# 安装原理
+
+## 使用的软件
  clover 引导启动系统
  opencore 引导启动系统
 
 
-### 系统引导原理
+## 系统引导原理
 1. 白苹果： 电脑加电 → 启动 Mac 的 UEFI Bios → 加载 NVRAM → 进入 macOS
 2. clover: 电脑加电 → 加载四叶草的 EFI 微系统 → 模拟白果的 EFI 和加载参数 → 进入 macOS
 3. Ozmosis：电脑加电 → 启动 Ozmosis 模拟的 Mac 的 Uefi Bios → 加载 NVRAM → 进入 macOS
 
-### 驱动文件
-ACPIBatteryManager.kext 电源管理驱动
+Clover的引导方式是通过用户创建EFI分区来引导仿冒的设备信息，从而实现系统的安装，但是由于Clover是通过仿冒白苹果机型来完成安装，所以必须要求所安装的黑苹果硬件和白苹果相似。
 
-### BIOS 设置
-打开 Ahci 选项
+opencore引导是clover的升级版，它相较于Clover的最大优势就是，它在mac升级系统的时候只需要升级kexts驱动文件即可，不必要升级OC引导本身
 
-### 注意事项
+Oz（[Ozmosis](http://imacosx.com/scb/1886.html)）引导，通过将BIOS刷成和白果一样达到完美效果，不过这种方法兼容性差，容易把主板刷报废，目前已经不更新了。
+
+# 收集的一些~~坑~~经验
 
 分区文件DiskGenius  下一个稳定版本的 不然很容易报错
 TransMac 这个软件 下一个绿色版的 试用版的容易出错  我就是出错了 然后就挂了 又一次下载镜像   建议使用 balenaEtcher
@@ -229,11 +273,55 @@ Restart the PC and try to access BIOS.
 Let me know.
 ```
 
+### 音频输出
 
+Config–DeviceProperties
 
+此项是用来注入你的设备的，主要是显卡和声卡两部分。同样你也可以定制一些设备到你的 `关于本机--系统报告--PCI` 列表中，尽管没有多大的意义。
 
+声卡
 
+这里首先我们需要确认自己的声卡驱动已经被加载，终端下输入：
 
+```bash
+kextstat | grep -E "AppleHDA|AppleALC|Lilu"
+```
+
+我们会得到被加载的驱动，请确保 `as.vit9696.Lilu`；`as.vit9696.AppleALC`；`com.apple.driver.AppleHDAController`；`com.apple.driver.AppleHDA` 已经被加载。
+
+找自己声卡的地址，准备好在文章开头要求下载的 `gfxutil`，将 `gfxutil` 程序放在桌面，输入:
+
+```bash
+~/desktop/gfxutil -f HDEF //一般来说我们在使用 Applealc 后，板载声卡的部件名都叫 HDEF
+```
+
+我们输入后会得到声卡的PCI路径，比如我输出的就是：
+
+```bash
+00:1f.3 8086:a2f0 /PC00@0/HDEF@1F,3 = PciRoot(0x0)/Pci(0x1F,0x3)
+```
+
+这里我们找到的声卡 PCI 路径为 `PciRoot(0x0)/Pci(0x1f,0x3)`。我们把预先填写在那里的 `PciRoot(0x0)/Pci(0x1b,0x0)` 项替换成我们真正的声卡路径。
+
+后面一段我们看到预先填写的声卡ID为 `<01000000>`，这里我们需要把它换成合适自己声卡的 ID，输入以下命令得到自己声卡的 CodecID。
+
+```bash
+ioreg -l|grep IOHDACodecVendorID
+```
+
+点击[此页面](https://github.com/headkaze/Hackintool/blob/master/Resources/Audio/Codecs.plist)搜索刚得到的CodecID就可查询到自己声卡的型号名称，以及可用的 `LayoutID`。
+
+比如我的 CodecID 为 `283906408`，声卡型号 `ALCS1220A`，对应 1, 2, 3, 5, 7, 11, 13, 15, 16, 27, 28, 29, 34 的 `layout ID`。我们需要一个个测试过去，选定自己能用的。这里我们选择 7 这个 ID 进行测试，将 7 转化成 16 进制格式为 07，后面为了满足格式要求添加 6 个 0，则为 `07000000`，将这个值替换刚才预先填的` 01000000` 中；如果我们测试 ID 为 27，27 的 16 进制为 1b，补上 6 个 0 则为 `1b000000`。
+
+```
+PciRoot(0x0)/Pci(0x1f,0x3)
+        device-id       data      <70a10000> //一般情况下这段是不需要填写的，除非你的声卡需要仿冒
+        layout-id       data      <0b000000> //这个Layout id我瞎写的，你按实际情况写
+```
+
+如果你测试的ID都无效，请确保你的操作过程正确、并测试用万能声卡(VoodooHDA)补丁来替换 AppleALC 这个补丁。如果都不行，你可能需要自行[编译声卡补丁](https://blog.daliansky.net/Use-AppleALC-sound-card-to-drive-the-correct-posture-of-AppleHDA.html)。
+
+参考：[2.3 Config–DeviceProperties](https://blog.xjn819.com/post/opencore-guide.html)
 
 
 
@@ -284,3 +372,9 @@ UEFI是一个微型操作系统，放在固件中，能识别FAT文件系统，�
 参考：
 [windows引导过程以及多系统引导原理](https://blog.csdn.net/liao20081228/article/details/82591728)
 [初步了解计算机与操作系统启动原理](https://www.jianshu.com/p/26e184605952)
+
+
+
+
+
+[^1]:???遗留笔记  应该没啥大用
