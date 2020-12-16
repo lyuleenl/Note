@@ -5,14 +5,13 @@ macintosh 麦金塔
 # Unsolved
 
 - 黑苹果 屏幕亮度
-
 - 随航问题  目前高度怀疑是核显没激活
-
-
 
 BIOS 中设置主显卡为独显 (PCIE) 并且设置 DVMT 为 128M，以便独显、核显并存
 
 enabling "Above 4G Decoding."
+
+bios设置主显卡为核显才能启动随航。
 
 - 引导界面多余选项
 

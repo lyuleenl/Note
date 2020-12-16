@@ -5,12 +5,58 @@ typora-root-url: ..\New folder
 
 # git branch
 
-## 删除本地分支
+```bash
+git branch ## 查看当前所在分支
+git branch aaa # 新建分支aaa
+git branch -d aaa # 删除分支aaa
 ```
+
+## 本地分支与远程关联
+
+```bash
+git branch --set-upstream-to=origin/<branch Name>
+```
+
+## 删除本地分支
+
+```bash
 git branch -d <branch name>
 ```
 
+# git checkout
+
+```bash
+git checkout aaa # 切换到 aaa分支
+git checkout -b aaa # 创建aaa，然后切换到 aaa分支
+git checkout commitid # 切换到某个commit id
+```
+
+# git switch
+
+```bash
+git switch aaa # 切换到 aaa分支
+git switch -c aaa # 创建aaa，然后切换到 aaa分支
+```
+
+| 管理分支        | git branch      | git branch    |
+| --------------- | --------------- | ------------- |
+| 切换分支        | git checkout    | git switch    |
+| 新建+切换分支   | git checkout -b | git switch -c |
+| 切换到commit id | git checkout    | git checkout  |
+
+# git restore
+
+```bash
+git restore [--worktree] aaa # 从staged中恢复aaa到worktree
+git restore --staged aaa # 从repo中恢复aaa到staged
+git restore --staged --worktree aaa # 从repo中恢复aaa到staged和worktree
+git restore --source dev aaa # 从指定commit中恢复aaa到worktree
+```
+
+<img src="/../Tech/git.assets/542.png" alt="img" style="zoom:67%;" />
+
 # git stash 
+
 可以将本地还没有提交的改动全部存储起来 并不提交
 ## git stash apply / git stash pop
 这两个命令就可以将刚才暂存起来的内容还原了。但是这里有一个问题，就是 stash apply 和 pop 之间是不同的。
@@ -18,37 +64,158 @@ git branch -d <branch name>
 一般情况下我使用 pop 多一些，但是 pop 也有缺点，比如 pop 没有办法选择应用的记录。我们可以使用 git stash list 来查看一下当前堆栈当中已经有的记录。
 如果我们使用 git stash pop 的话，默认的是应用的栈顶的记录，也就是 stash@{0}。但如果我们使用 stash apply 的话，我们可以自由选择我们想要应用的记录。比如如果我们想要应用最后一条记录的话，我们可以这样：
 
-```
+```bash
 git stash apply stash@{2}
 ```
 清空`git stash clear` 删除某个`git stash drop stash@{0}  `
 
 脚注示范[^1]
 
+# git diff
 
+查看当前文件的改动信息
 
-# git push
+```bash
+git diff <filename>
+```
+
+查看改动文件
+
+```bash
+git diff --stat 
+```
+
+查看与另一分支的差别
+
+```bash
+ git diff <branch> <filename>
+```
+
+查看与暂存仓库的差别
+
+```bash
+git diff --cached <commit> <filename>
+```
+
+查看与远程仓库的差别
+
+```bash
+git diff <commit> <filename>
+```
+
+`<cmmit>`=`HEAD`时查看工作目录同最近一次 commit 的内容的差异。
+
+两次commit之间的差别
+
+```bash
+git diff <commit> <commit>
+```
+
+以上命令可以不指定 `<filename>`，则对全部文件操作。
+ 以上命令涉及和 Git仓库 对比的，均可指定 commit 的版本。
+
+- `HEAD` 最近一次 commit
+- `HEAD^`  上次提交
+- `HEAD~100` 上100次提交
+- 每次提交产生的哈希值
+# git add
+git add .
+
+不加参数默认为将修改操作的文件和未跟踪新添加的文件添加到git系统的暂存区，注意不包括删除
+
+git add -u
+
+-u == --update 表示将已跟踪文件中的修改和删除的文件添加到暂存区，不包括新增加的文件，注意这些被删除的文件被加入到暂存区再被提交并推送到服务器的版本库之后这个文件就会从git系统中消失了
+
+git add -A
+
+-A == --all 
+
+表示将所有的已跟踪的文件的修改与删除和新增的未跟踪的文件都添加到暂存区。
+
+git add -I 不常用
 
 ## 撤销add
+
 如果是某个文件回滚到上一次操作：  
 ```
 git reset HEAD  文件名
 ```
-## 撤销commit
-```
-git reset --soft HEAD~1  //windows的bash
+**撤销** **add****操作**
+
+可以直接使用命令  **git reset HEAD**
+
+这个是整体回到上次一次操作
+
+**绿字变红字** **(撤销add)**
+
+如果是某个文件回滚到上一次操作： **git reset HEAD** **文件名**
+
+# git pull
+
+默认拉取远程已绑定的分支到当前分支
+
+```bash
+git pull
 ```
 
+```bash
+//与这两句等价
+git fetch origin master //从远程主机的master分支拉取最新内容 
+git merge FETCH_HEAD    //将拉取下来的最新内容合并到当前所在的分支中
+```
+
+取回`origin`主机的`fixbug`分支的最新提交，**并与本地的`master`分支合并**
+
+```bash
+git pull origin <remotebranshname>:<localbranshname>
+```
+
+指定远程分支与当前分支合并
+
+```bash
+git pull origin <remotebranshname>
+```
+
+<img src="/../Tech/git.assets/image-20201216152342411.png" alt="image-20201216152342411" style="zoom: 50%;" />
+
+详情参考[git pull/fetch详解](# git fetch & pull详解)
+
+# git push
+
+当前分支只有一个远程分支 可用此命令
+
+```bash
+git push origin master
+```
+
+如果远程分支被省略，如上则表示将本地分支推送到与之存在追踪关系的远程分支（通常两者同名），如果该远程分支不存在，则会被新建
+
+```bash
+git push origin : refs/for/master 
+```
+
+如果省略本地分支名，则**表示删除指定的远程分支**，因为这等同于推送一个空的本地分支到远程分支，等同于 git push origin --delete master
+
+git push origin
+
+如果当前分支与远程分支存在追踪关系，则本地分支和远程分支都可以省略，将当前分支推送到origin主机的对应分支
+
+ git push的一般形式为 git push <远程主机名> <本地分支名>  <远程分支名> ，例如 git push origin master：refs/for/master ，即是将本地的master分支推送到远程主机origin上的对应master分支， origin 是远程主机名，第一个master是本地分支名，第二个master是远程分支名。
 ## 撤销push操作
 重置至指定版本的提交，达到撤销提交的目的
+```
 git reset –-soft <版本号>
-
-
+```
 # git commit 
 
 ## 使用amend命令修改commit信息（注： amend命令只会修改最后一次commit的信息，之前的commit需要使用rebase）
-```
+```bash
 git commit --amend --reset-author
+```
+## 撤销commit
+```
+git reset --soft HEAD~1  //windows的bash
 ```
 ## 查看提交历史记录
 *git log*
@@ -247,7 +414,162 @@ crontab -e
 crontab -l
 ```
 
+## [git fetch & pull详解](https://www.cnblogs.com/runnerjack/p/9342362.html)
 
+**1、 简单概括**
+
+先用一张图来理一下git fetch和git pull的概念：
+
+![img](/../Tech/git.assets/clip_image001.jpg)
+
+可以简单的概括为：
+
+git fetch是将远程主机的最新内容拉到本地，用户在检查了以后决定是否合并到工作本机分支中。
+
+而git pull 则是将远程主机的最新内容拉下来后直接合并，即：git pull = git fetch + git merge，这样可能会产生冲突，需要手动解决。
+
+下面我们来详细了解一下git fetch 和git pull 的用法。 
+
+**2、分支的概念**
+
+在介绍两种方法之前，我们需要先了解一下分支的概念： 
+
+分支是用来标记特定代码的提交，每一个分支通过SHA1sum值来标识，所以对分支的操作是轻量级的，你改变的仅仅是SHA1sum值。
+
+如下图所示，当前有2个分支，A,C,E属于master分支，而A,B，D,F属于dev分支。
+
+```apl
+A----C----E（master）
+ \
+  B---D---F(dev)
+```
+
+它们的head指针分别指向E和F，对上述做如下操作：
+
+```bash
+git checkout master  //选择or切换到master分支
+ git merge dev     //将dev分支合并到当前分支(master)中
+```
+
+合并完成后：
+
+```apl
+A---C---E---G(master)
+ \       \
+  B---D---F（dev）
+```
+
+现在ABCDEG属于master，G是一次合并后的结果，是将E和Ｆ的代码合并后的结果，可能会出现冲突。而ABDF依然属于dev分支。可以继续在dev的分支上进行开发:
+
+```apl
+A---C---E---G---H(master)
+ \       \
+  B---D---F---I（dev）
+```
+
+分支（branch）的基本操作：
+
+```bash
+git branch //查看本地所有分支 
+
+git branch -r //查看远程所有分支
+
+git branch -a //查看本地和远程的所有分支
+
+git branch <branchname> //新建分支
+
+git branch -d <branchname> //删除本地分支
+
+git branch -d -r <branchname> //删除远程分支，删除后还需推送到服务器
+ git push origin:<branchname> //删除后推送至服务器
+
+git branch -m <oldbranch> <newbranch> //重命名本地分支
+ /**
+ *重命名远程分支：
+ *1、删除远程待修改分支
+ *2、push本地新分支到远程服务器
+ */
+
+//git中一些选项解释:
+
+-d
+ --delete：删除
+
+-D
+ --delete --force的快捷键
+
+-f
+ --force：强制
+
+-m
+ --move：移动或重命名
+
+-M
+ --move --force的快捷键
+
+-r
+ --remote：远程
+
+-a
+ --all：所有
+```
+
+**3、git fetch** **用法**
+
+git fetch 命令：
+
+```bash
+git fetch <远程主机名> //这个命令将某个远程主机的更新全部取回本地
+```
+
+如果只想取回特定分支的更新，可以指定分支名：
+
+```bash
+git fetch <远程主机名> <分支名> //注意之间有空格
+```
+
+最常见的命令如取回origin 主机的master 分支：
+
+```bash
+git fetch origin master
+```
+
+取回更新后，会返回一个FETCH_HEAD ，指的是某个branch在服务器上的最新状态，我们可以在本地通过它查看刚取回的更新信息：
+
+```bash
+git log -p FETCH_HEAD
+```
+
+如图： 
+
+![img](/../Tech/git.assets/clip_image002.png)
+
+可以看到返回的信息包括更新的文件名，更新的作者和时间，以及更新的代码（19行红色[删除]和绿色[新增]部分）。
+
+我们可以通过这些信息来判断是否产生冲突，以确定是否将更新merge到当前分支。 
+
+ 
+
+**4、git pull** **用法**
+
+前面提到，git pull 的过程可以理解为：
+
+```bash
+git fetch origin master //从远程主机的master分支拉取最新内容 
+git merge FETCH_HEAD   //将拉取下来的最新内容合并到当前所在的分支中
+```
+
+即将远程主机的某个分支的更新取回，并与本地指定的分支合并，完整格式可表示为：
+
+```bash
+git pull <远程主机名> <远程分支名>:<本地分支名>
+```
+
+如果远程分支是与当前分支合并，则冒号后面的部分可以省略：
+
+```bash
+git pull origin next
+```
 
 # git 报错
 ## fatal: This operation must be run in a work tree 
