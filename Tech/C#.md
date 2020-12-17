@@ -1,8 +1,7 @@
-## C#使用教程
-
-### C#中Equals和==的区别
+# C#中Equals和==的区别
 1.对值类型
   两者比较的都是内容，即值是否相同
+
 ```C#
 int i = 9;
 int j = 9;
@@ -21,6 +20,7 @@ i==j True
 2.对引用类型
 - string类型
   
+
 ==比较的是两变量引用是否一样 即引用地址是否相同。Equals比较的还是内容
 ```C#
 string s1 = "abc";
@@ -71,7 +71,73 @@ public override bool Equals(object obj)
 }
 ```
 
-### C#中List用法
+# C# yield return的用法
+
+对于函数
+
+```csharp
+        public static List<int> Unique(IEnumerable<int> nums)
+        {
+            List<int> uniqueVals = new List<int>();
+
+            foreach(int num in nums)
+            {
+                if(!uniqueVals.ContainsKey(num))
+                {
+                    uniqueVals.Add(num);
+                    Console.WriteLine(num);
+                }
+            }
+            return uniqueVals;
+        }
+```
+
+不难理解，传进来一个数组，比如说是一个 list，返回一个去重的 list 出去，简单明了，事实上，这个函数如果不需要复用的话，没有任何问题。但是，作为程序员，我们遇到不需要复用的情形实际上是非常少的。
+
+比方说，现在有一个要求，让你把一个去重的 list 乘方，你会怎么做，我们可能很自然的想到，把这个 Unique 函数的输出结果当做输入传到另一个乘方函数里面，然后再遍历一遍即可解决。
+
+可是，这样的问题是，我们完全可以把去重和乘方放在一次遍历里面一起解决啊，你这样多遍历了一次，增加了时间复杂度。
+
+又有同学可能要说，我们直接去改 Unque 函数不就行了吗，再里面添加一段乘方逻辑。好，这样的话我再问你，比方说现在又有一个需求，让你把一个 list 去重以后开方，你怎么办？你是要再写一个新的函数么？这样的话，你这两个函数里面都有 list 去重这段逻辑，造成了代码冗余，这是软件工程的禁忌。
+
+那怎么办？yield return 可以完美的解决这个问题，以上面的去重乘方需求为例，我们可以把 Unique 函数改写为：
+
+```c#
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+var l = new List<int> { 0, 3, 4, 5, 7, 3, 2, 7, 8, 0, 3, 1 };
+foreach (int num in Square(Unique2(l)))
+    Console.WriteLine($"{num}");
+
+static IEnumerable<int> Unique2(IEnumerable<int> nums)
+{
+    List<int> uniqueVals = new List<int>();
+
+    foreach (int num in nums)
+    {
+        if (!uniqueVals.Contains(num))
+        {
+            uniqueVals.Add(num);
+            yield return num;
+        }
+    }
+}
+
+static IEnumerable<int> Square(IEnumerable<int> nums)
+{
+    foreach (var num in nums)
+        yield return num * num;
+}
+```
+
+准确的说，启动两次 for 循环，每次循环执行一次运算，和启动一次 for 循环，一次循环执行两次运算，这两种开销是不一样的，比如说，启动 for 循环的代价是 m，一次运算的代价是 n，共 k 次运算，那么前者的开销是 k(m+n) 后者是 m + kn。
+
+[参考](https://zhuanlan.zhihu.com/p/103850999)
+
+# C#中List用法
+
 List的方法和属性 方法或属性 作用
 ```C#
 //Capacity 用于获取或设置List可容纳元素的数量。当数量超过容量时，这个值会自动增长。您可以设置这个值以减少容量，也可以调用TrimExcess()方法来减少容量以适合实际的元素数目。*注意 Capacity表示的是容量而不是元素个数，调用TrimExcess()是来动态调整Capacity的值以便最适合该List
@@ -209,7 +275,7 @@ foreach (string s in mList)
 } 
 ```
 
-### C#中Hash用法
+# C#中Hash用法
 Java 中的 哈希表 使用 HashMap 类 来实现。 在 C# 中，官方的哈希表实现为 Dictionary 。
 
 可能很多读者会想到 Hashtable 类，它也是哈希表，但所有元素都为object类型，不支持泛型。官方推荐使用 Dictionary，可以简单的把它理解为支持泛型的Hashtable.
@@ -221,13 +287,13 @@ Java 中的 哈希表 使用 HashMap 类 来实现。 在 C# 中，官方的哈�
 [推荐使用泛型代替非泛型](https://github.com/dotnet/platform-compat/blob/master/docs/DE0006.md)
 
 简单的说，HashTable支持泛型，Dictionary必须规定类型。Hashtable 和Dictionary从数据结构上来说都属于Hashtable，都是对关键字（键值）进行散列操作，将关键字散列到Hashtable的某一个槽位中 去，不同的是处理碰撞的方法。散列函数有可能将不同的关键字散列到Hashtable中的同一个槽中去，这个时候我们称发生了碰撞。
-#### Dictionary
+## Dictionary
 - 支持泛型，Type safety在定义的时候就必须指定键值类型
 - 需线程同步，不支持线程安全。
 - 访问速度快，本身不用打包（boxing）和解包（unboxing），速度稍稍稍微快了一点
 - 访问不存在的键值对会抛异常
 - 处理冲突时使用链表法
-#### HashTable
+## HashTable
 - 不支持泛型，但插入类型Object可为任意类型。但会存在插入取出时频繁装箱拆箱，具有一定开销。
 - 支持多路读线程且单路写线程安全
 - 访问不存在的键值对会返回null
@@ -238,3 +304,31 @@ Dictionary和HashTable是同源，它们实现了自己的哈希算法。至于�
 参考:
 [图解泛型](https://www.cnblogs.com/wangqiang3311/p/5910254.html)
 [浅析C#Dictionary实现原理](https://zhuanlan.zhihu.com/p/96633352)
+
+# C# @符号的含义
+
+在 C# 规范中, @ 可以作为标识符（类名、变量名、方法名等）的第一个字符，以允许C# 中保留关键字作为自己定义的标识符。
+如
+
+```c#
+class @class
+{
+   public static void @static(bool @bool) {
+      if (@bool)
+         System.Console.WriteLine("true");
+      else
+         System.Console.WriteLine("false");
+   }   
+}
+class Class1
+{
+   static void M() {
+      cl\u0061ss.st\u0061tic(true);
+   }
+}
+```
+
+注意，@ 虽然出现在标识符中，但不作为标识符本身的一部分。
+因此，以上示例，定义了一个名为 class 的类，并包含一个名为 static 的方法，以及一个参数名为了 bool 的形参。
+
+这样，对于跨语言的移植带来了便利。因为，某个单词在 C# 中作为保留关键字，但是在其他语言中也许不是。

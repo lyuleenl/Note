@@ -151,6 +151,20 @@ git reset HEAD  文件名
 
 如果是某个文件回滚到上一次操作： **git reset HEAD** **文件名**
 
+## 批量添加 （不是add .）
+
+在工作中，使用add . 的情况反而不是最多的，工作区有很多文件不能提交到仓库里，一般情况下需要我们一个一个添加，你的目的是要添加所有的还是需要一种方式添加你需要添加的，如果是前一种 `git add .` 就可以
+
+如果这里还有特殊情况 比如一半需要添加一半不需要 使用 `git add -i` 进入交互式添加
+
+<img src="/../Tech/git.assets/image-20201217171840684.png" alt="image-20201217171840684" style="zoom: 50%;" />
+
+<img src="/../Tech/git.assets/image-20201217171922907.png" alt="image-20201217171922907" style="zoom:50%;" />
+
+<img src="/../Tech/git.assets/image-20201217171948829.png" alt="image-20201217171948829" style="zoom:50%;" />
+
+<img src="/../Tech/git.assets/image-20201217172008565.png" alt="image-20201217172008565" style="zoom:50%;" />
+
 # git pull
 
 默认拉取远程已绑定的分支到当前分支
@@ -619,6 +633,135 @@ doc/**/*.pdf
 ```
 
 [模板](https://github.com/github/gitignore)
+
+# 其他git命令
+
+1. 修改最近的提交
+git commit --amend
+Copy
+-amend 参数允许追加修改至最后一次提交之后（比如忘记提交的文件），添加 -no-edit 参数将追加提交至最后一次提交之内并且不改变提交的备注信息。如果没有新的修改提交， -amend 参数将会重写最后一次提交的备注信息。
+
+查看更多：git help commit
+
+2. 交互式选择部分修改
+git add -p
+-p (或 -path) 会允许我们交互式的选择是否提交每一处改动，这样，每次提交就只包含一处修改，即 拆分我们的该次添加修改，每一处修改都有一个提交
+
+查看更多: git help add
+
+3. 交互式的处理储藏中文件的每个部分
+git stash -p
+跟 git-add 有点类似，你可以使用 --patch 选项交互式地选择每个跟踪文件的要储藏的部分。
+
+通过  git help stash 命令了解更多。
+
+4. 储藏未跟踪的文件
+git stash -u
+默认情况下，储藏命令是不包括未跟踪的文件的。为了储藏未跟踪的文件你需要使用 -u 参数。 -a (—all) 参数会将未跟踪和忽略的文件一起储藏，通常情况下，这可能不是你需要的。
+
+5. 交互式地还原文件的选中部分
+git checkout -p
+--patch 参数还可以用于有选择的丢弃每个跟踪文件的某些部分。我给这个命令起了个别名叫 git discard。
+
+使用 git help checkout 了解更多。
+
+6. 切到上一个分支
+git checkout -
+该命令可以使你快速切换到之前签出的分支。一般来说 - 是上一个分支的别名。它可以跟别的命令一起使用。我将 checkout 简写成 co ，这样它就变成了  git co - 。
+
+7. 还原本地所有修改
+git checkout .
+在确定可以放弃所有本地修改的情况下可以使用  . 立即去完成。好的习惯是使用 checkout --patch 命令。
+
+8. 查看修改
+git diff --staged
+这个命令会显示已经暂存的文件和上次提交文件之前的差异，git diff 是显示还没有暂存起来的修改；当你使用 git add . 之后再使用 git diff 就会发现什么都没有。
+
+使用 git help diff 了解更多。
+
+9. 重命名本地分支
+git branch -m old-name new-name
+如果你想重命名当前所在的分支，可以将命令缩短为以下格式:
+
+git branch -m new-name
+查看更多: git help branch
+
+10. 重命名远端分支
+为了重命名远端分支，你一旦修改本地分支名称，就立即需要删除远端分支，再将重命名后的本地分支推送上去。
+
+git push origin :old-name
+git push origin new-name
+11. 一次性查看所有冲突文件
+变基可能会导致冲突，这个命令将打开所有需要你处理的冲突文件。
+
+git diff --name-only --diff-filter=U | uniq  | xargs $EDITOR
+12. 有哪些改变？
+git whatchanged --since="2 weeks ago"
+该命令将显示最近两周提交的简单日志，包括每次提交的介绍和修改的文件。下图是译者找的 demo：
+
+
+
+13. 从最近一次提交中删除文件
+假设你提交了一个错误的文件。你可以通过组合 rm 和 commit --amend 命令从上次提交中快速删除它：
+
+git rm —-cached <file-to-remove>
+git commit —-amend
+14. 查找分支
+git branch --contains <commit>
+该命令将展示包含指定提交的所有分支。
+
+15. 本地储藏优化
+git gc --prune=now --aggressive
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 [^1]:这是解释
 

@@ -1,17 +1,19 @@
-# VScode使用教程
-
-### vs code整段右移或者左移
+# vs code整段右移或者左移
 
 选中按TAB右移，按SHIFT+TAB左移
 
-## 在VScode中使用C#开发
+# 在VScode中使用C#开发
+$\textcolor{ForestGreen}{VScode仅限于微型项目或测试  写项目还是老老实实用Visual Studio吧！}$
+
 **环境**
+
 - VSC本体
 - .NET Core SDK，可以访问dot.net下载
 - VSC扩展：C#、Code Runner
 
 **操作步骤**
-- 建立一个文件夹
+
+- 建立一个空文件夹
 - 打开终端（TERMINAL） 输入``` dotnet new console``` 会自动生成Hello World文件
 - 按F5即可运行 
 - 还需要做一点修改。左边点开.vscode文件夹：
@@ -26,7 +28,43 @@ csc是编译C#的程序。安装VS，把 安装路径下\Microsoft VisualStudio
 \2019\Community\MSBuild\Current\Bin\Roslyn\加到Path里。
 ```
 
-## VS code 同步设置和扩展插件
+**常见问题**
+
+`'scriptcs' is not recognized as an internal or external command, operable program or batch file.`
+
+> You need both the script runner extension and to install scripts
+>
+> Installation and information guide is here: http://scriptcs.net/
+>
+> 1. Install chocolatey
+> 2. Run `cinst scriptcs` to install the latest version.
+
+[refer](https://stackoverflow.com/questions/59261688/trouble-running-c-sharp-code-in-vs-code-getting-scriptcs-error)
+
+`error CS7021: You cannot declare namespace in script code`
+
+> It's complaining about the namespace, so remove it from the Program.cs
+
+`The name 'Console' does not exist in the current context`
+
+using System;
+
+`Feature 'default literal' is not available in C# 8.0. Please use language version 9.0 or greater.`
+
+> Adding
+>
+> ```
+> <LangVersion>latest</LangVersion>
+> ```
+>
+>  under the `<PropertyGroup>` tags
+>
+> in your pubxml(**.csproj) file seems to fix it.
+
+[refer](https://stackoverflow.com/questions/47946732/c-sharp-7-1-cant-be-published/48085575#48085575)
+
+# VS code 同步设置和扩展插件
+
 https://www.jianshu.com/p/0a273bf2a986
 vscode_plugin token ebc81cc8b0dac29cdbc8e98d5eef49094f5d7e5c
 gist :e813379a55dab2b9a6d2bc13e1bbf8f0
