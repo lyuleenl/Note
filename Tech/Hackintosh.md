@@ -2,9 +2,14 @@
 
 macintosh 麦金塔
 
-# Unsolved
+# Issue
 
 - 黑苹果 屏幕亮度
+
+- win下关机变重启
+
+  打开 config.plist 文件并勾选 Acpi 部分的 FixShutdown 选项解决的
+
 - 随航问题  目前高度怀疑是核显没激活
 
 BIOS 中设置主显卡为独显 (PCIE) 并且设置 DVMT 为 128M，以便独显、核显并存

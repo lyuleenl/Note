@@ -7,9 +7,15 @@ typora-root-url: ..\New folder
 
 ```bash
 git branch ## 查看当前所在分支
-git branch aaa # 新建分支aaa
-git branch -d aaa # 删除分支aaa
 ```
+
+## 新建分支
+
+```bash
+git branch aaa
+```
+
+建议使用[git switch](#git switch)
 
 ## 本地分支与远程关联
 
