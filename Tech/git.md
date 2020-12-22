@@ -31,10 +31,18 @@ git branch -d <branch name>
 
 # git checkout
 
+## 分支操作
+
 ```bash
 git checkout aaa # 切换到 aaa分支
 git checkout -b aaa # 创建aaa，然后切换到 aaa分支
 git checkout commitid # 切换到某个commit id
+```
+
+## 丢弃本地所有修改，不包括新增文件
+
+```bash
+git checkout . //本地所有修改的。没有的提交的，都返回到原来的状态
 ```
 
 # git switch
