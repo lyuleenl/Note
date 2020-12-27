@@ -629,8 +629,33 @@ windows中的换行符为 CRLF，而在Linux下的换行符为LF
 windows对于进程的同步互斥管理，是有资源上锁机制的。猜测这里肯定是有进程对某资源进行了加锁，但是由于进程突然崩溃，未来得及解锁，导致其他进程访问不了。
 进入工作区目录下的隐藏文件.git，其中的index.lock文件删除掉，然后重新打开git bash进程，问题解决。
 
+## git push错误failed to push some refs to解决方法
+
+**原因**
+
+当我们在git版本库中发现一个问题后，如你在git上对它进行了在线修改，但是没有对本地库进行同步（做到push之前，都先pull下代码，就可以保证本地库和远程库代码一致）。这个时候你再次commit，想把本地库提交到远程git库中，就会出现push失败问题。
+
+> failed to push some refs to
+
+**解决**
+
+方法：1
+
+跟因就是远程库与本地库代码不一致导致的，我们只要把远程库同步到本地库即可，使用如下命令：
+
+> git pull --rebase origin master
+
+指令意思就是把远程库中的跟新合并到本地库中（可能存在冲突需要解决），--rebase的作用是取消本地库中刚刚提交的commit，并把他们接到更新后的版本库中。
+ 
+
+方法：2
+
+或者使用如下命令，将commit的代码撤回，然后再git pull也行。
+
+> git reset --soft HEAD^
 
 # .gitignore用法
+
 ```
 # 忽略 .a 文件
 *.a
