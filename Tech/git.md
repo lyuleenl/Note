@@ -20,8 +20,16 @@ git branch aaa
 ## 本地分支与远程关联
 
 ```bash
-git branch --set-upstream-to=origin/<branch Name>
+git branch --set-upstream-to=origin/<branch Name> <branch Name>
 ```
+
+## 取消与远程关联
+
+```bash
+git branch --unset-upstream
+```
+
+取消与远程仓库的关联`git remote remove origin`
 
 ## 删除本地分支
 
@@ -653,6 +661,48 @@ windows对于进程的同步互斥管理，是有资源上锁机制的。猜测�
 或者使用如下命令，将commit的代码撤回，然后再git pull也行。
 
 > git reset --soft HEAD^
+
+## refusing to merge unrelated histories
+
+
+I think you have commit in remote repository and when you pull this error happen.
+
+use this command
+
+```bash
+git pull origin master --allow-unrelated-histories
+git merge origin origin/master
+```
+
+i suggest reading at https://stackoverflow.com/questions/39761024/refusing-to-merge-unrelated-histories-failure-while-pulling-to-recovered-repos
+
+This cannot be answered shortly.
+
+**Warning**: You **should not** use the `--allow-unrelated-histories` flag unless you know what unrelated history is and are sure you need it. The check was introduced just to prevent disasters when people merge unrelated projects by mistake.
+
+*As far as I understand*, in your case **has happened the following**:
+
+You have cloned a project at some point `1`, and made some development to point `2`. Meanwhile, project has evolved to some point `3`.
+
+[![Enter image description here](/../../MarkDownImg/Quqzj.png)](https://i.stack.imgur.com/Quqzj.png)
+
+Then you for some reason lost your local .git subdirectory - which contained all your history from `1` to `2`. You managed to restore the current state though.
+
+[![Enter image description here](/../../MarkDownImg/UqtRi.png)](https://i.stack.imgur.com/UqtRi.png)
+
+But now it does not have any history - it looks like the whole project has appeared out of nowhere. If you ask Git to merge them it will not be able to say where your changes are, so it can add them to remote project, as far as I understand it will just report massive add/add conflicts.
+
+**You should** now find back that commit `1` from the remote history where you have cloned the project (I assume you did not pull after that; if you did then you should instead look for the last commit you have pulled). Then you should modify your history so that is starts from that commit 1, and then Git will be able to merge correctly (with pull for example).
+
+So, the steps (assuming you are now in your restored commit without history):
+
+- estimate where is the commit `1` you have cloned from as some `1?`, based on commit time for example
+- run `git diff _1?_..HEAD`, and read carefully. Make sure that the difference contains only edits which you have made. If it contains more then you should have picked a bit wrong `1?` and need to adjust it and repeat this step
+- after you have found the commit `1`. You should make it your parent; do `git --reset --soft _1_`, and then `git commit`.
+
+[![Enter image description here](/../../MarkDownImg/nI6fA.png)](https://i.stack.imgur.com/nI6fA.png)
+
+Now it looks like you have cloned from `1`, then made one commit with all your changes. Your intermediate history is lost anyway with your older `.git` directory, but now you can run your `git pull` - it will merge correctly.
 
 # .gitignore用法
 
