@@ -2,6 +2,13 @@
 typora-root-url: ..\New folder
 ---
 
+# git remote
+
+## 查看远程分支
+
+```bash
+git remote -v
+```
 
 # git branch
 
@@ -22,6 +29,8 @@ git branch aaa
 ```bash
 git branch --set-upstream-to=origin/<branch Name> <branch Name>
 ```
+
+若出现错误`fatal: branch 'master' does not exist`原因为本地无分支 新建并checkout 到该分支，再执行此方法，还不行就执行一遍git fetch origin
 
 ## 取消与远程关联
 
@@ -75,7 +84,7 @@ git restore --staged --worktree aaa # 从repo中恢复aaa到staged和worktree
 git restore --source dev aaa # 从指定commit中恢复aaa到worktree
 ```
 
-<img src="/../Tech/git.assets/542.png" alt="img" style="zoom:67%;" />
+<img src="https://i.loli.net/2020/12/30/APhoDGuC1TQw2Oy.png" alt="542.png" style="zoom:67%;" />
 
 # git stash 
 
@@ -179,13 +188,13 @@ git reset HEAD  文件名
 
 如果这里还有特殊情况 比如一半需要添加一半不需要 使用 `git add -i` 进入交互式添加
 
-<img src="/../Tech/git.assets/image-20201217171840684.png" alt="image-20201217171840684" style="zoom: 50%;" />
+<img src="https://i.loli.net/2020/12/30/qAfQ2WjIslnpaOK.png" alt="image-20201217171840684.png" style="zoom:67%;" />
 
-<img src="/../Tech/git.assets/image-20201217171922907.png" alt="image-20201217171922907" style="zoom:50%;" />
+<img src="https://i.loli.net/2020/12/30/GXfs6C7Si9oTvdh.png" alt="image-20201217171922907.png" style="zoom:67%;" />
 
-<img src="/../Tech/git.assets/image-20201217171948829.png" alt="image-20201217171948829" style="zoom:50%;" />
+<img src="https://i.loli.net/2020/12/30/Jfi4WSl5VQmt9XY.png" alt="image-20201217171948829.png" style="zoom:67%;" />
 
-<img src="/../Tech/git.assets/image-20201217172008565.png" alt="image-20201217172008565" style="zoom:50%;" />
+<img src="https://i.loli.net/2020/12/30/KvG8Bc3lr2nhUmZ.png" alt="image-20201217172008565.png" style="zoom:67%;" />
 
 # git pull
 
@@ -213,7 +222,7 @@ git pull origin <remotebranshname>:<localbranshname>
 git pull origin <remotebranshname>
 ```
 
-<img src="/../Tech/git.assets/image-20201216152342411.png" alt="image-20201216152342411" style="zoom: 50%;" />
+<img src="https://i.loli.net/2020/12/30/MrpnYvLAG6jzXiW.jpg" alt="clip_image001.jpg" style="zoom:50%;" />
 
 详情参考[git pull/fetch详解](# git fetch & pull详解)
 
@@ -245,7 +254,10 @@ git reset –-soft <版本号>
 ```
 # git commit 
 
-## 使用amend命令修改commit信息（注： amend命令只会修改最后一次commit的信息，之前的commit需要使用rebase）
+## 使用amend命令修改commit信息
+
+(注： amend命令只会修改最后一次commit的信息，之前的commit需要使用rebase）
+
 ```bash
 git commit --amend --reset-author
 ```
@@ -424,9 +436,9 @@ git pull
 
 将该脚本放到git仓库的根目录中
 
-<img src="/../Tech/git.assets/image-20201214140659729.png" alt="image-20201214140659729" style="zoom:67%;" />
+<img src="https://i.loli.net/2020/12/30/I5aPugKB8JsHyN7.png" alt="image-20201214140659729.png" style="zoom:50%;" />
 
-<img src="/../Tech/git.assets/image-20201214140108699.png" alt="image-20201214140108699" style="zoom:67%;" />
+<img src="https://i.loli.net/2020/12/30/MEGXt1kxI9jyzVH.png" alt="image-20201214140108699.png" style="zoom:50%;" />
 
 参考：https://blog.csdn.net/yougou_sully/article/details/106114253
 
@@ -456,7 +468,7 @@ crontab -l
 
 先用一张图来理一下git fetch和git pull的概念：
 
-![img](/../Tech/git.assets/clip_image001.jpg)
+<img src="https://i.loli.net/2020/12/30/W5Gpohtq9JMXgSx.png" alt="image-20201216152342411.png" style="zoom:50%;" />
 
 可以简单的概括为：
 
@@ -578,7 +590,7 @@ git log -p FETCH_HEAD
 
 如图： 
 
-![img](/../Tech/git.assets/clip_image002.png)
+<img src="https://i.loli.net/2020/12/30/u6sKZoTQqXzhP1D.png" alt="clip_image002.png" style="zoom: 67%;" />
 
 可以看到返回的信息包括更新的文件名，更新的作者和时间，以及更新的代码（19行红色[删除]和绿色[新增]部分）。
 
