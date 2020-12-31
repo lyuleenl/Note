@@ -350,7 +350,7 @@ npm i -g gitmoji-cli
 git add . 按.gitignore规则全部提交。不会提示.gitignore
 git add * 与add .  不一样的在于会提示已被忽略的内容。
 
-![](https://img2020.cnblogs.com/blog/2130168/202009/2130168-20200901152637965-560450371.png)
+![image.png](https://i.loli.net/2020/12/31/2qewiGLZths853p.png)
 - 2
 git add .默认添加. 开头的文件  例如.gitignore   git add * 忽略. 开头的文件
 
@@ -623,7 +623,29 @@ git pull <远程主机名> <远程分支名>:<本地分支名>
 git pull origin next
 ```
 
+## 删除最后一次远程提交
+
+*方式一：使用revert*
+
+```shell
+$ git revert HEAD
+$ git push origin master
+```
+
+*方式二：使用reset*
+
+```shell
+$ git reset --hard HEAD^
+$ git push origin master -f
+```
+
+*二者区别：*
+
+- **revert** 是放弃指定提交的修改，但是会生成一次新的提交，需要填写提交注释，以前的历史记录都在；
+- **reset** 是指将HEAD指针指到指定提交，历史记录中不会出现放弃的提交记录。
+
 # git 报错
+
 ## fatal: This operation must be run in a work tree 
 可能原因： 1.路径不正确
           2.git仓库没有正确创建
@@ -700,11 +722,11 @@ This cannot be answered shortly.
 
 You have cloned a project at some point `1`, and made some development to point `2`. Meanwhile, project has evolved to some point `3`.
 
-[![Enter image description here](/../../MarkDownImg/Quqzj.png)](https://i.stack.imgur.com/Quqzj.png)
+![image.png](https://i.loli.net/2020/12/31/46K8hvcb2szfDei.png)
 
 Then you for some reason lost your local .git subdirectory - which contained all your history from `1` to `2`. You managed to restore the current state though.
 
-[![Enter image description here](/../../MarkDownImg/UqtRi.png)](https://i.stack.imgur.com/UqtRi.png)
+![image.png](https://i.loli.net/2020/12/31/lHrdIohY27LnQuR.png)
 
 But now it does not have any history - it looks like the whole project has appeared out of nowhere. If you ask Git to merge them it will not be able to say where your changes are, so it can add them to remote project, as far as I understand it will just report massive add/add conflicts.
 
@@ -716,7 +738,7 @@ So, the steps (assuming you are now in your restored commit without history):
 - run `git diff _1?_..HEAD`, and read carefully. Make sure that the difference contains only edits which you have made. If it contains more then you should have picked a bit wrong `1?` and need to adjust it and repeat this step
 - after you have found the commit `1`. You should make it your parent; do `git --reset --soft _1_`, and then `git commit`.
 
-[![Enter image description here](/../../MarkDownImg/nI6fA.png)](https://i.stack.imgur.com/nI6fA.png)
+![image.png](https://i.loli.net/2020/12/31/OY9r8AGXcPMBVUe.png)
 
 Now it looks like you have cloned from `1`, then made one commit with all your changes. Your intermediate history is lost anyway with your older `.git` directory, but now you can run your `git pull` - it will merge correctly.
 

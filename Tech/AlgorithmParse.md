@@ -51,7 +51,7 @@ A*算法在运算过程中，每次从优先队列中选取f(n)值最小（优�
 
 https://zhuanlan.zhihu.com/p/54510444
 
-https://zh.wikipedia.org/wiki/A*%E6%90%9C%E5%B0%8B%E6%BC%94%E7%AE%97%E6%B3%95
+https://zh.wikipedia.org/wiki/A%E6%90%9C%E5%B0%8B%E6%BC%94%E7%AE%97%E6%B3%95
 
 https://www.gamedev.net/reference/articles/article2003.asp
 

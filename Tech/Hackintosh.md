@@ -1,5 +1,9 @@
 ---
-
+title: Hackintosh #文章页面上的显示名称，可以任意修改，不会出现在URL中
+date: 2020-12-11 15:30:16 #文章生成时间，一般不改，当然也可以任意修改
+categories: #文章分类目录，可以为空，注意:后面有个空格
+tags: [hackintosh,efi,系统] #文章标签，可空，多标签请用格式[tag1,tag2,tag3]，注意:后面有个空格
+description: 黑苹果配置 #概要信息
 ---
 
 
@@ -252,7 +256,7 @@ Windows 管理员运行cmd 输入命令：Reg add HKLM\SYSTEM\CurrentControlSet\
 
 ### 开机显示American Megatrends
 
-<img src="https://img2020.cnblogs.com/blog/2130168/202011/2130168-20201112090556500-1003078245.jpg" width = "50%" />
+<img src="https://i.loli.net/2020/12/31/QJc7kYuSb6tqNnX.png" alt="image.png" style="zoom:50%;" />
 
 config.plist->NVRAM->Add->7C436110-AB2A-4BBB-A880-FE41995C9F82->boot-args
 添加字段  rtcfx_excloud=80-FF  从00-FF 自己试

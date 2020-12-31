@@ -275,7 +275,7 @@ public class Solution
             }
         }
 ```
-[//]: # (作者：shuang-han-3 链接：https://leetcode-cn.com/problems/plus-one/solution/zhan-qiu-jie-by-shuang-han-3/)
+[//]: # "作者：shuang-han-3 链接：https://leetcode-cn.com/problems/plus-one/solution/zhan-qiu-jie-by-shuang-han-3/"
 
 
 ### 7.移动0
@@ -670,29 +670,3 @@ int main(void){
 }
 ```
 [//]: #(转自知乎:谷雨同学)
-
-
-```C#
-        #region XML转JSON
-        /// <summary>
-        /// Get xml to json obj
-        /// </summary>
-        /// <param name="xmlPath">xml localpath</param>
-        public static JArray XML2JSON(string xmlPath)
-        {
-            XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.Load(xmlPath);
-            //string json = JsonConvert.SerializeXmlNode(xmlDoc);
-            string xmlStr = xmlDoc.InnerXml;
-            Services.ArrayOfAsset asset = XmlUtil.Deserialize(typeof(Services.ArrayOfAsset), xmlStr) as Services.ArrayOfAsset;
-            //add head 
-            Services.XMLFormat xMLFormat = new Services.XMLFormat();
-            xMLFormat.Asset = asset.Asset;
-            object a = xMLFormat.Asset;
-            string strJson = JsonConvert.SerializeObject(a);
-            //Services.Asset jo = JsonConvert.DeserializeObject<Services.Asset>(strJson);
-            JArray json = (JArray)new JsonSerializer().Deserialize(new JsonTextReader(new StringReader(strJson)));
-            return json;
-        }
-        #endregion
-```
