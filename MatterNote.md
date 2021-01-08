@@ -5,7 +5,7 @@ switch network
 ns wifi设置 开启代理 输入小火箭代理共享界面的ip和端口就可以了 
 
 阿里云远程连接密码
-iyY3cR
+Alanc1
 
 解压缩报错tar: Error is not recoverable: exiting now
 [root@Gris-11140 FMIS2600bak]# tar -zxvf /home/oradata/FMIS2600DMP.tar.gz

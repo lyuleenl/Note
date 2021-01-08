@@ -3,8 +3,49 @@
 
 公网ip：47.93.247.69
 
+连接方式
+
+ssh root@47.93.247.69
+
+Alanacc123!@#
+
+## 为什么在更新了yum源之后需要yum -y update
+
+**一般来说，各种博客的更新yum源步骤都是（这里以centos6.9 / ali yum源为例）**
+
+**1：** `yum -y install wget`
+
+**2：** `mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup`
+
+**3：** `cd /etc/yum.repos.d/`
+
+**4：** `wget http://mirrors.aliyun.com/repo/Centos-6.repo`
+
+**5：** `yum makecache`
+
+问题来了，许多博客都有这一步
+
+**6: `yum -y update`**
+
+这一步更新了内核，软件以及rpm包。不明白意义何在？
+
+
+
+其实我更推荐用<code>yum upgrade</code>取代<code>yum update</code>，<code>yum update</code>只更新系统中已有的软件包，不会更新内核软件包(<code>kernel-</code>这个包)，<code>yum upgrade</code>是更彻底的<code>update</code>，会分析包的废弃关系，可以跨小版本升级（比如从centos 7.1升级到centos 7.4），除了做了<code>yum update</code>完全相同的事之外，还会更新<code>kernel-</code>的包，也会卸载掉已经废弃的包。
+
+新部署系统需要yum update/upgrade是因为yum不会给你解决依赖冲突(但是apt会)。
+
+举个例子，你的系统中已经安装了<code>kernel-2.6.32.500</code>，但是你要安装的某个软件包依赖于<code>kernel-2.6.32.600</code>，此时yum会报错退出，告诉你依赖不满足，并不会升级kernel包(只是举个例子而已，实际上几乎没有软件包直接依赖于kernel包)，所以你只能yum update/upgrade一次，把系统中所有的软件包全部更新，这样满足新部署的软件包的依赖。
+
+在debian/ubuntu的系统中，apt会对这种情况自动处理，会自动升级依赖的软件包。
+
+换句话来说，对于新部署的服务器，也是推荐upgrade全部的软件包，已获得最新的安全补丁。即使对于已经上线的服务器，也是推荐定期打安全漏洞补丁，减少漏洞带来的侵害。
+
+引自：https://segmentfault.com/q/1010000011264410
+
 # 断点续传
 `wget -c <downloadlink>`
+
 # 删除文件和文件夹
 删除文件 `rm <filename>`
 删除文件夹 `rm -rf <dirname>`
@@ -299,7 +340,7 @@ $ wget -c url     ### 下载 url 并开启断点续传
 ```
 #   ;   ;;      .      ,       /       \       'string'|       !   $   ${}   $?      $$   $*  "string"*     **   ?   :   ^   $#   $@    `command`{}  []   [[]]   ()    (())  ||   &&       {xx,yy,zz,...}~   ~+   ~-    &   \<...\>   +       -        %=   ==   != 
 ```
- 
+
 
 \# 井号 (comments)
 这几乎是个满场都有的符号，除了先前已经提过的"第一行"
