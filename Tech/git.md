@@ -742,6 +742,22 @@ So, the steps (assuming you are now in your restored commit without history):
 
 Now it looks like you have cloned from `1`, then made one commit with all your changes. Your intermediate history is lost anyway with your older `.git` directory, but now you can run your `git pull` - it will merge correctly.
 
+## Mac上报错 fatal: Authentication failed for
+
+使用mac下载Azure DevOps项目时，使用git clone xxx 命令后出现需要输入密码，输入后显示报错。原因为mac连接azure项目有bug，官方给出解决方案：
+
+1.终端依次输入
+
+brew tap microsoft/git
+
+brew install --cask git-credential-manager-core
+
+brew upgrade git-credential-manager-core
+
+2.重新输入命令git clone xxx 若跳出登陆窗口输入账户和密码，解决。
+
+参考：https://github.com/microsoft/Git-Credential-Manager-Core#download-and-install
+
 # .gitignore用法
 
 ```
