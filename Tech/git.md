@@ -50,6 +50,14 @@ git branch --unset-upstream
 git branch -d <branch name>
 ```
 
+## 查看远程分支
+
+```bash
+git branch -a
+```
+
+
+
 # git checkout
 
 ## 分支操作
