@@ -9,7 +9,19 @@ ssh root@47.93.247.69
 
 Alanacc123!@#
 
-## 为什么在更新了yum源之后需要yum -y update
+# 错误记录
+
+输入reboot时报错
+
+## System has not been booted with systemd as init system (PID 1). Can't operate.
+
+```
+reboot -f
+```
+
+- -f : 强迫重开机，不呼叫 shutdown 这个指令
+
+# 为什么在更新了yum源之后需要yum -y update
 
 **一般来说，各种博客的更新yum源步骤都是（这里以centos6.9 / ali yum源为例）**
 
