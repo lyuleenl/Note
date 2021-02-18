@@ -15,11 +15,15 @@ Alanacc123!@#
 
 ## System has not been booted with systemd as init system (PID 1). Can't operate.
 
-```
-reboot -f
+```bash
+reboot -f          ##-f : 强迫重开机，不呼叫 shutdown 这个指令
 ```
 
-- -f : 强迫重开机，不呼叫 shutdown 这个指令
+## WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!
+
+```bash
+ssh-keygen -R "you server hostname or ip"
+```
 
 # 为什么在更新了yum源之后需要yum -y update
 
