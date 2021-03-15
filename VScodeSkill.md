@@ -12,7 +12,32 @@ description: vscode快捷键及各种插件
 
 选中按TAB右移，按SHIFT+TAB左移
 
+# 在VScode中使用c开发
+
+1. 下载Minw g++编译器
+2. 设置环境变量
+3. 设置c_cpp_properties.json
+
+![image-20210315154617224](../MarkDownImg/image-20210315154617224.png)
+
+这些路径来源为CMD输入命令
+
+![image-20210315154657741](../MarkDownImg/image-20210315154657741.png)
+
+输出内容
+
+![image-20210315154728811](../MarkDownImg/image-20210315154728811.png)
+
+
+
+常见问题
+
+### The term 'g++' is not recognized as the name of a cmdlet, function, script file, or operable program. Check the spelling of the name, or if a path was included, verify that the path is correct and try again.
+
+管理员打开VScode再试一遍
+
 # 在VScode中使用C#开发
+
 $\textcolor{ForestGreen}{VScode仅限于微型项目或测试  写项目还是老老实实用Visual Studio吧！}$
 
 **环境**
@@ -84,3 +109,9 @@ gist :e813379a55dab2b9a6d2bc13e1bbf8f0
 int是带符号的，表示范围是：-2147483648到2147483648，即-2^31到2^31次方。
 
 uint则是不带符号的，表示范围是：2^32即0到4294967295。
+
+# code runner for vscode
+
+**支持语言**
+
+c c++ c# python js ts go 

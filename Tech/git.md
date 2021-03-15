@@ -766,6 +766,16 @@ brew upgrade git-credential-manager-core
 
 参考：https://github.com/microsoft/Git-Credential-Manager-Core#download-and-install
 
+## error: cannot update the ref 'xxx'
+
+执行git pull时的错误，原因为远程分支与本地冲突？ 解决方法
+
+`git remote prune origin`
+
+然后再git pull即可
+
+参考：https://stackoverflow.com/questions/10068640/git-error-on-git-pull-unable-to-update-local-ref
+
 # .gitignore用法
 
 ```
