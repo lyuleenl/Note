@@ -1,4 +1,138 @@
+# 按频率
+
+## 反转一个单链表
+
+**示例:**
+
+```
+输入: 1->2->3->4->5->NULL
+输出: 5->4->3->2->1->NULL
+```
+
+**进阶:**
+
+你可以迭代或递归地反转链表。你能否用两种方法解决这道题？
+
+*[来源](https://leetcode-cn.com/problems/reverse-linked-list)*
+
+*链接：*
+
+
+
+/**
+
+ \* 反转链表
+
+ \* Definition for singly-linked list.
+
+ \* struct ListNode {
+
+ \*   int val;
+
+ \*   ListNode *next;
+
+ \*   ListNode() : val(0), next(nullptr) {}
+
+ \*   ListNode(int x) : val(x), next(nullptr) {}
+
+ \*   ListNode(int x, ListNode *next) : val(x), next(next) {}
+
+ \* };
+
+ */
+
+struct ListNode
+
+{
+
+  int val;
+
+  ListNode *next;
+
+  ListNode() : val(0), next(nullptr) {}
+
+  ListNode(int x) : val(x), next(nullptr) {}
+
+  ListNode(int x, ListNode *next) : val(x), next(next) {}
+
+};
+
+
+
+//迭代法
+
+class Solution
+
+{
+
+public:
+
+  ListNode *reverseList(ListNode *head)
+
+  {
+
+​    if (head == nullptr || head->next == nullptr)
+
+​      return head;
+
+​    ListNode *curr = head;
+
+​    ListNode *prev = nullptr;
+
+​    while (curr != nullptr)
+
+​    {
+
+​      ListNode *next = curr->next;
+
+​      curr->next = prev;
+
+​      prev = curr;
+
+​      curr = next;
+
+​    }
+
+​    return prev;
+
+  }
+
+};
+
+
+
+//递归
+
+class Solution
+
+{
+
+public:
+
+  ListNode *reverseList(ListNode *head)
+
+  {
+
+​    if (head == nullptr || head->next == nullptr)
+
+​      return head;
+
+​    ListNode* newhead=reverseList(head->next);
+
+​    head->next->next=head;
+
+​    head->next=nullptr;
+
+​    return newhead;
+
+  }
+
+};
+
+# 按顺序
+
 ### 1 删除排序数组中的重复项
+
 给定一个排序数组，你需要在 原地 删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。
 
 不要使用额外的数组空间，你必须在 原地 修改输入数组 并在使用 O(1) 额外空间的条件下完成。
@@ -670,3 +804,29 @@ int main(void){
 }
 ```
 [//]: #(转自知乎:谷雨同学)
+
+
+```C#
+        #region XML转JSON
+        /// <summary>
+        /// Get xml to json obj
+        /// </summary>
+        /// <param name="xmlPath">xml localpath</param>
+        public static JArray XML2JSON(string xmlPath)
+        {
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.Load(xmlPath);
+            //string json = JsonConvert.SerializeXmlNode(xmlDoc);
+            string xmlStr = xmlDoc.InnerXml;
+            Services.ArrayOfAsset asset = XmlUtil.Deserialize(typeof(Services.ArrayOfAsset), xmlStr) as Services.ArrayOfAsset;
+            //add head 
+            Services.XMLFormat xMLFormat = new Services.XMLFormat();
+            xMLFormat.Asset = asset.Asset;
+            object a = xMLFormat.Asset;
+            string strJson = JsonConvert.SerializeObject(a);
+            //Services.Asset jo = JsonConvert.DeserializeObject<Services.Asset>(strJson);
+            JArray json = (JArray)new JsonSerializer().Deserialize(new JsonTextReader(new StringReader(strJson)));
+            return json;
+        }
+        #endregion
+```

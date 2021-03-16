@@ -776,6 +776,18 @@ brew upgrade git-credential-manager-core
 
 参考：https://stackoverflow.com/questions/10068640/git-error-on-git-pull-unable-to-update-local-ref
 
+## [fatal: unable to access, Received HTTP code 400 from proxy after CONNECT](https://stackoverflow.com/questions/55451735/how-to-solve-fatal-unable-to-access-received-http-code-400-from-proxy-after-co)
+
+Because of some proxy configurations this occurs, to reset all the configurations just run `rm ~/.gitconfig` and start the terminal again.
+
+大坑。。。。每次都全退
+
+## LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to github.com:443
+
+run **`networksetup -setv6off Wi-Fi`**
+
+FYI:https://stackoverflow.com/questions/48987512/ssl-connect-ssl-error-syscall-in-connection-to-github-com443
+
 # .gitignore用法
 
 ```

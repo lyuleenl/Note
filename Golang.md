@@ -114,6 +114,39 @@ fmt.Println(sub1,sub2,sub3,combined)
 - 声明切片时可以为切片设置容量大小，为切片预分配空间。在实际使用的过程中，如果容量不够，切片容量会自动扩展。
 - `sub2...` 是切片解构的写法，将切片解构为 N 个独立的元素。*???????????*
 
+## 循环
+
+go 没有while do while循环
+
+使用for来代替
+
+```GO
+//输出10次hello,world(使用类似while循环形式，先判断后做)
+func jobWhileMoni() {
+    var count = 0
+    for {
+        if count >= 10 {
+            break //如果count>=10则退出
+        }
+        fmt.Println("hello,world", count)
+        count++
+    }
+}
+//模拟do……while实现输出10次hello,world（先做后判断）
+func jobDowhileMoni(){
+    var i = 0
+    for{
+        fmt.Println("hello,world",i)
+        i++
+        if(i>=10){
+            break
+        }
+    }
+}
+```
+
+
+
 # 坑
 
 fmt.println
