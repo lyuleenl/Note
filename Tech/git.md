@@ -652,6 +652,26 @@ $ git push origin master -f
 - **revert** 是放弃指定提交的修改，但是会生成一次新的提交，需要填写提交注释，以前的历史记录都在；
 - **reset** 是指将HEAD指针指到指定提交，历史记录中不会出现放弃的提交记录。
 
+## 如何将命令行中的git提示语言改为英文
+
+**mac自带的终端**
+
+```shell
+    $ vim ~/.bash_profile
+```
+
+添加如下内容：
+
+```bash
+    alias git='LANG=en_GB git'
+```
+
+更新配置：
+
+```shell
+    $ source ~/.bash_profile
+```
+
 # git 报错
 
 ## fatal: This operation must be run in a work tree 
@@ -787,6 +807,15 @@ Because of some proxy configurations this occurs, to reset all the configuration
 run **`networksetup -setv6off Wi-Fi`**
 
 FYI:https://stackoverflow.com/questions/48987512/ssl-connect-ssl-error-syscall-in-connection-to-github-com443
+
+## git Could not resolve host: socks5
+
+```
+git config http.proxy socks5:192.168.67.1:32767
+git config http.proxy socks5:192.168.67.1(代理ip):32767（代理端口）
+```
+
+然后需要将clashx开启局域网连接！！！！
 
 # .gitignore用法
 
