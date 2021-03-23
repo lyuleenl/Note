@@ -817,6 +817,12 @@ git config http.proxy socks5:192.168.67.1(代理ip):32767（代理端口）
 
 然后需要将clashx开启局域网连接！！！！
 
+第二种：
+
+git config -e
+
+删除代理地址
+
 # .gitignore用法
 
 ```
