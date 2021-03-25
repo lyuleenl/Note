@@ -56,7 +56,11 @@ git branch -d <branch name>
 git branch -a
 ```
 
+## 删除远程分支
 
+```bash
+git push origin --delete <branchName>
+```
 
 # git checkout
 

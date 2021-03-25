@@ -61,8 +61,14 @@ ssh-keygen -R "you server hostname or ip"
 
 # 断点续传
 `wget -c <downloadlink>`
+# 文件编辑
+## 创建文件和文件夹
+创建文件夹
+`mkdir filename`
+创建文件
+`vi file`
 
-# 删除文件和文件夹
+## 删除文件和文件夹
 删除文件 `rm <filename>`
 删除文件夹 `rm -rf <dirname>`
 # 压缩 查询 解压文件
