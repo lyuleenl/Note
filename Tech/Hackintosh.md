@@ -6,6 +6,14 @@ tags: [hackintosh,efi,系统] #文章标签，可空，多标签请用格式[tag
 description: 黑苹果配置 #概要信息
 ---
 
+EDIT: Problem solved. I needed to update Lilu.kext and set iGPU in my bios to enabled for my ASUS mobo. Now when the system sleeps, everything shuts off. My CPU is running at an idle of 0.80, with an average of 2.20 during average use. Peaks at 4 whenever I'm rendering video or images.
+
+https://www.reddit.com/r/hackintosh/comments/b00e3m/mojave_i77700_hackintosh_sleeps_but_cpu_fans/
+
+
+
+
+
 
 
 macintosh 麦金塔
