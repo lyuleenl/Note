@@ -34,7 +34,7 @@ var e bool = true
 ```Go
 var b=1//自动确定类型
 c:=3
-d:="this is go"//简写方式
+d:="this is go"//简写方式 
 ```
 
 空值：nil
