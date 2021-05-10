@@ -1,6 +1,8 @@
 
 
-本文教各位如何利用git来下载项目代码。工具：git
+本文教各位如何利用git来下载项目代码。工具：git，mingw，cmake，dev c++ ，vscode
+
+工具安装包已经包含在项目文件中，但建议能下载的还是手动去下载，一是版本更新，二是通过手动下载才是完整的学习路径。
 
 # 何为Git
 
@@ -48,7 +50,7 @@ Git是目前应用最广泛的版本控制工具，由Linux之父Linus Torvalds�
 
 现在我们来测试一下。Windows+R输入cmd进入命令窗口，输入git出现
 
-<img src="https://i.loli.net/2021/04/27/d3htvPfOuFZCBgU.png" alt="image.png" style="zoom:50%;" />
+<img src="https://i.loli.net/2021/05/10/mA71OHs2Zu54XyS.png" alt="image.png" style="zoom:50%;" />
 
 说明我们的git安装成功了。
 
@@ -72,8 +74,17 @@ Git是目前应用最广泛的版本控制工具，由Linux之父Linus Torvalds�
 
 ## 安装mingw
 
-下载地址：http://mingw-w64.org/doku.php
-注意安装完需要将项目目录中bin文件下的mingw32-make.exe改名为make.exe并配置环境变量。
+下载地址：http://mingw-w64.org/doku.php 或执行项目文件中的安装包。
+
+注意安装完需要将项目目录中bin文件下的mingw32-make.exe改名为make.exe并配置环境变量。[如何设置环境变量](#如何设置环境变量)
+
+### 可能遇到的问题
+
+1. 安装失败
+
+<img src="https://i.loli.net/2021/05/10/K6przVZBjJX3sW1.png" alt="image.png" style="zoom:50%;" />
+
+点击安装包右键以管理员形式运行。若此方法还是不成功则复制项目中的MingW.zip文件，解压到磁盘中后再添加环境变量。
 
 ## 安装CMake
 
@@ -116,13 +127,53 @@ Dev C++由于历史悠久目前已经停止更新了，我们也可以使用VSco
 
 4. 点击Terminal->new Terminal，或者ctrl+shift+ \` 调出下方命令输入框。
 
-	<img src="https://i.loli.net/2021/05/07/okTSFRKiAt6Xs7J.png" alt="image.png" style="zoom:50%;" />
+<img src="https://i.loli.net/2021/05/07/okTSFRKiAt6Xs7J.png" alt="image.png" style="zoom:50%;"/>
+
 依次输入命令`cmake . -G "Unix Makefiles"` 和 `make`
 
 <img src="https://i.loli.net/2021/05/07/DghKi3qIn18yLBF.png" alt="image.png" style="zoom:50%;" />
 
 5. 此时在项目中生成出可执行文件，即可运行。
 
-<img src="https://i.loli.net/2021/05/07/inc3LgFWpemSsDZ.png" alt="image.png" style="zoom:50%;" />
-注意：若命令执行中出现报错则说明环境安装的有问题，建议重新安装Cmake和MinGW
+<img src="https://i.loli.net/2021/05/07/inc3LgFWpemSsDZ.png" alt="image.png" style="zoom:50%;"  />
 
+**注意**：若命令执行中出现报错则说明环境安装的有问题，建议重新安装Cmake和MinGW
+
+
+# 其他
+
+##### 如何设置环境变量
+
+首先复制你想添加环境变量的地址，以mingw为例
+
+找到mingw安装目录中的bin，复制上方地址
+
+<img src="https://i.loli.net/2021/05/10/ruLA5yV1acBqiEd.png" alt="image.png" style="zoom:50%;" />
+
+点击我的电脑右键->属性
+
+<img src="https://i.loli.net/2021/05/10/Fq6KwWQzvNka1eS.png" alt="image.png" style="zoom:50%;" />
+
+点击高级系统设置
+
+<img src="https://i.loli.net/2021/05/10/Ulp9IqzA3FkjTHi.png" alt="image.png" style="zoom:50%;" />
+
+点击环境变量
+
+<img src="https://i.loli.net/2021/05/10/djW81KMORzPolEf.png" alt="image.png" style="zoom:50%;" />
+
+在下方找到Path
+
+<img src="C:\Users\lei.yu\AppData\Roaming\Typora\typora-user-images\image-20210510144806068.png" alt="image-20210510144806068" style="zoom:50%;" />
+
+双击，在新窗口中点击新建，将刚才复制的路径加到此处。
+
+<img src="https://i.loli.net/2021/05/10/uXv638cEz7WweZT.png" alt="image.png" style="zoom:50%;" />
+
+然后点击ok即可。
+
+在cmd中输入
+
+<img src="https://i.loli.net/2021/05/10/UnFceNuqkSiCsj4.png" alt="image.png" style="zoom:50%;" />
+
+出现信息即为添加成功。
