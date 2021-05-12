@@ -91,6 +91,8 @@ Git是目前应用最广泛的版本控制工具，由Linux之父Linus Torvalds�
 下载地址：https://cmake.org/
 记得勾选添加环境变量。
 
+<img src="https://i.loli.net/2021/05/11/zuWo6vfH1PVTmJR.png" alt="image.png" style="zoom:50%;" />
+
 # Dev C++安装
 
 下载地址：https://sourceforge.net/projects/orwelldevcpp/files/latest/download
@@ -129,7 +131,9 @@ Dev C++由于历史悠久目前已经停止更新了，我们也可以使用VSco
 
 <img src="https://i.loli.net/2021/05/07/okTSFRKiAt6Xs7J.png" alt="image.png" style="zoom:50%;"/>
 
-依次输入命令`cmake . -G "Unix Makefiles"` 和 `make`
+首先cd到你想编译的项目目录中，本文以dp为例：输入`cd dp`
+
+再依次输入命令`cmake . -G "Unix Makefiles"` 和 `make`
 
 <img src="https://i.loli.net/2021/05/07/DghKi3qIn18yLBF.png" alt="image.png" style="zoom:50%;" />
 
@@ -172,7 +176,7 @@ Dev C++由于历史悠久目前已经停止更新了，我们也可以使用VSco
 
 然后点击ok即可。
 
-在cmd中输入
+在cmd中输入make -version
 
 <img src="https://i.loli.net/2021/05/10/UnFceNuqkSiCsj4.png" alt="image.png" style="zoom:50%;" />
 
