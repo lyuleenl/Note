@@ -14,8 +14,6 @@ https://www.reddit.com/r/hackintosh/comments/b00e3m/mojave_i77700_hackintosh_sle
 
 
 
-
-
 macintosh 麦金塔
 
 # Issue
@@ -229,6 +227,18 @@ Clover的引导方式是通过用户创建EFI分区来引导仿冒的设备信�
 opencore引导是clover的升级版，它相较于Clover的最大优势就是，它在mac升级系统的时候只需要升级kexts驱动文件即可，不必要升级OC引导本身
 
 Oz（[Ozmosis](http://imacosx.com/scb/1886.html)）引导，通过将BIOS刷成和白果一样达到完美效果，不过这种方法兼容性差，容易把主板刷报废，目前已经不更新了。
+
+# 更新日志
+
+将显卡改为核显： `PciRoot(0x0)/Pci(0x2,0x0)`   
+
+```
+AAPL,ig-platform-id        data  <0300983E>
+更改为
+AAPL,ig-platform-id        data  <00009B3E>
+```
+
+
 
 # 收集的一些~~坑~~经验
 

@@ -847,6 +847,8 @@ git config -e
 
 删除代理地址
 
+解决以上问题：ClashX的问题，换一个代理工具！！！！！！！
+
 # .gitignore用法
 
 ```
