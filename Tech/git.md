@@ -66,6 +66,12 @@ git branch -a
 git push origin --delete <branchName>
 ```
 
+## 拉取远程分支到本地
+
+```bash
+git checkout -b localbranch origin/remotebranch
+```
+
 # git checkout
 
 ## 分支操作

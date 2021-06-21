@@ -6,6 +6,32 @@ tags: [VScode] #文章标签，可空，多标签请用格式[tag1,tag2,tag3]，
 description: vscode快捷键及各种插件
 ---
 
+# vscode快捷键
+
+## 格式化代码
+
+全局：shift+alt+f  
+
+选中：shift+alt+f
+
+![img](https://pic3.zhimg.com/v2-7d752a63acab79dd2b546846e9f5fdd2_b.webp)
+
+## 代码折叠
+
+1. 在光标处折叠最内侧未折叠区域：
+
+· 在Windows系统或Ubuntu系统：Ctrl键 + Shift键 + [键
+
+· 在Mac系统：Command键+ Option键 + [键
+
+2. 在光标处展开折叠区域：
+
+· 在Windows系统或Ubuntu系统：Ctrl键 + Shift键 + ]键
+
+· 在Mac系统：Command键+ Option键 + ]键
+
+![img](https://pic2.zhimg.com/v2-a111ff823b8579f881475e9d950f5061_b.webp)
+
 
 
 # vs code整段右移或者左移

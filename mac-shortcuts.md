@@ -23,6 +23,10 @@ cmd+m
 
 option+a
 
+## 访达复制路径
+
+cmd+option+c
+
 
 # chrome
 ## 标签页 后退 前进
