@@ -88,6 +88,20 @@ git checkout commitid # 切换到某个commit id
 git checkout . //本地所有修改的。没有的提交的，都返回到原来的状态
 ```
 
+## 回滚
+
+```bash
+git log //选择要回滚的版本
+git checkout xxx //回滚到该版本
+```
+
+滚回来
+
+```bash
+gitre flog //查看之前操作的commit
+git reset --hard xxx//回滚到该版本
+```
+
 # git switch
 
 ```bash
